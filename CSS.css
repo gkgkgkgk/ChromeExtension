@@ -1,0 +1,4 @@
+*{margin:0;padding:0}body{height:90vh;display:table;width:100%;font:18px/1.45em sans-serif}
+div{display:table-cell;vertical-align:middle}
+date{max-width:12em;margin:0 auto;text-align:center}
+time{max-width:12em;margin:0 auto;text-align:left}

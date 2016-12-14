@@ -1,22 +1,8 @@
 {
-  "manifest_version": 2,
-  "name": "New Tab",
-  "version": "0.1",
-  "background": {
-    "scripts": ["background.js"]
-  },
-  "content_scripts": [
-    {
-      "matches": [
-        "*://*/_/chrome/newtab*"
-      ],
-      "js": ["jquery.js", "content.js"]
-    }
-  ],
-   "chrome_url_overrides" : {
-    "newtab": "html/newTab.html"
-  },
-  "browser_action": {
-    "default_icon": "icon.png"
-  }
+	"name": "New Tab ",
+	"description": "new tab page",
+	"version": "1.0",
+	"incognito": "split",
+	"chrome_url_overrides": {"newtab": "newtab.html"},
+	"manifest_version": 2
 }
