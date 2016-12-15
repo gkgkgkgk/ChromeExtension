@@ -1,5 +1,18 @@
-*{margin:0;padding:0}
-name{text-align:center}
-body{height:90vh;display:table;width:100%;font:18px/1.45em sans-serif;}
-date{max-width:12em;margin:0 auto;text-align:center;float:top;}
-time{max-width:12em;margin:0 auto;text-align:center;float:center;}
+body{
+	display: table-cell;
+    vertical-align: middle;
+	}
+
+name{
+	text-align:center;
+	vertical-align: middle;
+	}
+	
+
+date{
+	text-align:center;
+	}
+	
+time{
+	text-align:center;
+	}
