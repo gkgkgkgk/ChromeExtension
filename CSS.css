@@ -1,18 +1,14 @@
-body{
-	display: table-cell;
-    vertical-align: middle;
-	}
+body {
+  display: table;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+}
 
-name{
-	text-align:center;
-	vertical-align: middle;
-	}
-	
+.name {
+ position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 
-date{
-	text-align:center;
-	}
-	
-time{
-	text-align:center;
-	}
+}

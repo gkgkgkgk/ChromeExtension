@@ -6512,9 +6512,13 @@ button.close {
   clear: both;
 }
 .center-block {
+	float:none;
   display: block;
   margin-right: auto;
   margin-left: auto;
+}
+.horizontalAlign{
+	text-align:center;
 }
 .pull-right {
   float: right !important;

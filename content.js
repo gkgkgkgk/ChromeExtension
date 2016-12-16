@@ -1,4 +1,5 @@
 //*****************************//
+
 var currentdate = new Date(); 
 var welcomeMessage = "";
 var dateDay = currentdate.getDate();
@@ -65,9 +66,13 @@ function setTheTime(){
 
 })(this.document); 
 }
+
 //*****************************//
 setInterval(function(){
 //get the variables
+
+
+
 hours = currentdate.getHours();
 year = currentdate.getFullYear();
 hours = currentdate.getHours();
