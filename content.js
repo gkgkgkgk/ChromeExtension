@@ -13,14 +13,12 @@ setWelcomeMessage();
 setName();
 setTheDate();
 setTheTime();
+
 function setWelcomeMessage(){
-if(hours <= 11 && hours > 4){
+if(hours <= 12 && hours > 4){
 	welcomeMessage = "Good Morning, "
 	}
-else if(hours  > 11 && hours <= 15){
-	welcomeMessage = "Hello, "
-	}
-else if(hours > 15 && hours < 17){
+else if(hours > 12 && hours < 17){
 	welcomeMessage = "Good Afternoon, "
 	}
 else if(hours >= 17){
@@ -66,12 +64,22 @@ function setTheTime(){
 
 })(this.document); 
 }
+function setWeather(){
+	(function(weather){
+		  weather.getElementsByTagName("weather")[0].innerHTML = "you win";
+})(this.document); }
 
 //*****************************//
 setInterval(function(){
 //get the variables
+$.ajax({
+	url:"https://api.darksky.net/forecast/PUT_KEY_HERE/40.893247,-74.011654",
+	method:"GET"
+	}).done(function(response){
+console.log(response.currently.temperature);
 
 
+});
 
 hours = currentdate.getHours();
 year = currentdate.getFullYear();
@@ -80,7 +88,6 @@ minutes = currentdate.getMinutes();
 seconds = currentdate.getSeconds();
 currentdate = new Date(); 
 welcomeMessage = "";
-//function
 setWelcomeMessage();
 setName();
 setTheDate();
