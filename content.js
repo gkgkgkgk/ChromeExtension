@@ -14,17 +14,17 @@ setName();
 setTheDate();
 setTheTime();
 function setWelcomeMessage(){
-if(hours < 11 && hours > 4){
+if(hours <= 11 && hours > 4){
 	welcomeMessage = "Good Morning, "
 	}
-else if(hours  >= 12 && hours < 17){
+else if(hours  > 11 && hours <= 15){
+	welcomeMessage = "Hello, "
+	}
+else if(hours > 15 && hours < 17){
 	welcomeMessage = "Good Afternoon, "
 	}
-else if(hours >= 17 && hours < 21){
+else if(hours >= 17 && hours <= 4){
 	welcomeMessage = "Good Evening, "
-	}
-else if(hours >= 21 && hours <= 4){
-	welcomeMessage = "Good Afternoon "
 	}
 else {
 	welcomeMessage = "Out of bounds";
