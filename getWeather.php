@@ -1,4 +1,4 @@
-GET https://api.darksky.net/forecast/62296b6b9da67149d9f8d8f4e2949f50/40.893247,-74.011654
+GET https://api.darksky.net/forecast/KEYGOESHERE/40.893247,-74.011654
 
 {
   "latitude": 40.893247,
