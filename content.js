@@ -23,7 +23,7 @@ else if(hours  > 11 && hours <= 15){
 else if(hours > 15 && hours < 17){
 	welcomeMessage = "Good Afternoon, "
 	}
-else if(hours >= 17 && hours <= 4){
+else if(hours >= 17){
 	welcomeMessage = "Good Evening, "
 	}
 else {
