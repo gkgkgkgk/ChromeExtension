@@ -10,6 +10,7 @@ var minutes = currentdate.getMinutes();
 var seconds = currentdate.getSeconds();
 var status = "AM";
 var weatherString = "weather";
+var url = "temp!"
 setWelcomeMessage();
 setName();
 setTheDate();
@@ -76,10 +77,10 @@ $.ajax({
 if(response.currently.temperature< 0){
 	weatherString = "Its "+response.currently.temperature+" degrees..... ITS FREEZING!";
 }
-else if(response.currently.temperature< 32){
+else if(response.currently.temperature< 40){
 	weatherString = "Its "+response.currently.temperature+" degrees..... bundle up!";
 }
-else if(response.currently.temperature< 50){
+else if(response.currently.temperature< 65){
 	weatherString = "Its "+response.currently.temperature+" degrees outside..... you need a light jacket.";
 }
 else if(response.currently.temperature< 80){
@@ -101,10 +102,17 @@ function setWeather(){
 })(this.document); }
 //***********END OF WEATHER API AND FUNCTION***********//
 
+//bing image of the day!!!!!!
+$.ajax({
+	url:"http://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1",
+	method:"GET"
+	}).done(function(response){
+		 url ="http://bing.com"+response.images[0].url;
+		console.log(url);
 
-
-
-
+$("body").css("background-image", "url("+url+")");
+	
+});
 
 //*****************************//
 setInterval(function(){
@@ -121,3 +129,12 @@ setName();
 setTheDate();
 setTheTime();   
 }, 1000);
+/*
+        _         _         _         _    
+       | |       | |       | |       | |   
+   __ _| | ____ _| | ____ _| | ____ _| | __
+  / _` | |/ / _` | |/ / _` | |/ / _` | |/ /
+ | (_| |   < (_| |   < (_| |   < (_| |   < 
+  \__, |_|\_\__, |_|\_\__, |_|\_\__, |_|\_\
+   __/ |     __/ |     __/ |     __/ |     
+  |___/     |___/     |___/     |___/      */

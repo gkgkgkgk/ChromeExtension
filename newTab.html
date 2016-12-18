@@ -1,34 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
-<body> <!--add background="name.filetype" to set image-->
-   <meta charset="UTF-8">
-   <link href="bootstrap/css/bootstrap.css"rel="stylesheet">
-   <div class="container">
-      <div class = "pull-right"><time></div>
-      <div  class = "pull-left">
-         <date>
+   <body>
+      <!--add background="name.filetype" to set image-->
+      <meta charset="UTF-8">
+      <link href="bootstrap/css/bootstrap.css"rel="stylesheet">
+	  <link href = "CSS.css" rel = "stylesheet">
+      <div class="container">
+         <h4 class = "pull-right"><time></h4>
+         <h4  class = "pull-left">
+            <date>
+         </h4>
       </div>
-   </div>
-   <h1 style = " margin: 0;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      margin-right: -50%;
-      transform: translate(-50%, -50%)">
-      <name>
-   </h1>
-   <div style = " margin: 0;
-      position: absolute;
-      top: 95%;
-      left: 50%;
-      margin-right: -50%;
-      transform: translate(-50%, -50%)">
-   <h3 id="weather">
-      <weather>
-   </h3>
-   <a href = "https://darksky.net/poweredby/" class = "header">Powered by DarkSky</a>
-   </div>
-   <script src = "jquery.js"></script>
-   <script src="content.js"></script>
+      <h1 style = " margin: 0;
+         position: absolute;
+         top: 50%;
+         left: 50%;
+         margin-right: -50%;
+         transform: translate(-50%, -50%)" 
+		 class ="textWhite">
+         <name>
+      </h1>
+      <div style = " margin: 0;
+         position: absolute;
+         top: 95%;
+         left: 50%;
+         margin-right: -50%;
+         transform: translate(-50%, -50%)">
+         <h3 id="weather">
+            <weather>
+         </h3>
+         <a href = "https://darksky.net/poweredby/" 
+            style = " margin: 0;
+            position: absolute;
+            top: 95%;
+            left: 50%;
+            margin-right: -50%;
+            transform: translate(-50%, -50%)">Powered by DarkSky</a>
+      </div>
+      <script src = "jquery.js"></script>
+      <script src="content.js"></script>
    </body>
 </html>
