@@ -1,6 +1,5 @@
 //*****************************//
-
-var currentdate = new Date(); 
+var currentdate = new Date();
 var welcomeMessage = "";
 var dateDay = currentdate.getDate();
 var month = currentdate.getMonth()
@@ -11,123 +10,168 @@ var seconds = currentdate.getSeconds();
 var status = "AM";
 var weatherString = "weather";
 var url = "temp!"
+var brightness = 0;
+
 setWelcomeMessage();
 setName();
 setTheDate();
 setTheTime();
 
-function setWelcomeMessage(){
-if(hours <= 12 && hours > 4){
-	welcomeMessage = "Good Morning, "
-	}
-else if(hours > 12 && hours < 17){
-	welcomeMessage = "Good Afternoon, "
-	}
-else if(hours >= 17){
-	welcomeMessage = "Good Evening, "
-	}
-else {
-	welcomeMessage = "Out of bounds";
-	}
-}
-function setName(){
-(function(name) {
-	var nameString = "Gavri";
-	name.getElementsByTagName("name")[0].innerHTML = welcomeMessage + nameString;
-})(this.document);
+
+
+
+function setWelcomeMessage() {
+    if (hours <= 12 && hours > 4) {
+        welcomeMessage = "Good Morning, "
+    } else if (hours > 12 && hours < 17) {
+        welcomeMessage = "Good Afternoon, "
+    } else if (hours >= 17) {
+        welcomeMessage = "Good Evening, "
+    } else {
+        welcomeMessage = "Out of bounds";
+    }
 }
 
-function setTheDate(){
-(function(d) {
-	var date = (month+1) + "/"
-                + dateDay  + "/" 
-                + year;
-	
-  d.getElementsByTagName("date")[0].innerHTML = date;
-})(this.document);
+function setName() {
+    (function(name) {
+        var nameString = "Gavri";
+        name.getElementsByTagName("name")[0].innerHTML = welcomeMessage + nameString;
+    })(this.document);
 }
 
-function setTheTime(){
-(function(c){
-	var newHours = hours;
-	if(hours > 12){
-		status = "PM";
-		newHours -= 12;
-		}
-	else{
-		newHours = hours;
-		status = "AM";
-		}
-	var time = newHours + ":"  
-                + minutes + ":" 
-                + seconds + " "+
-                status;		
-	  c.getElementsByTagName("time")[0].innerHTML = time;
+function setTheDate() {
+    (function(d) {
+        var date = (month + 1) + "/" +
+            dateDay + "/" +
+            year;
 
-})(this.document); 
+        d.getElementsByTagName("date")[0].innerHTML = date;
+    })(this.document);
+}
+
+function setTheTime() {
+    (function(c) {
+        var newHours = hours;
+        if (hours > 12) {
+            status = "PM";
+            newHours -= 12;
+        } else {
+            newHours = hours;
+            status = "AM";
+        }
+        var time = newHours + ":" +
+            minutes + ":" +
+            seconds + " " +
+            status;
+        c.getElementsByTagName("time")[0].innerHTML = time;
+
+    })(this.document);
 }
 
 //***********WEATHER API AND FUNCTION***********//
 //
 $.ajax({
-	url:"https://api.darksky.net/forecast/62296b6b9da67149d9f8d8f4e2949f**/40.893247,-74.011654",
-	method:"GET"
-	}).done(function(response){
-		console.log(response.currently.temperature);
-if(response.currently.temperature< 0){
-	weatherString = "Its "+response.currently.temperature+" degrees..... ITS FREEZING!";
-}
-else if(response.currently.temperature< 40){
-	weatherString = "Its "+response.currently.temperature+" degrees..... bundle up!";
-}
-else if(response.currently.temperature< 65){
-	weatherString = "Its "+response.currently.temperature+" degrees outside..... you need a light jacket.";
-}
-else if(response.currently.temperature< 80){
-	weatherString = "Its "+response.currently.temperature+" degrees outside..... no need for extra layers!";
-}
-else if(response.currently.temperature< 100){
-	weatherString = "Its "+response.currently.temperature+" degrees outside..... wear shorts and a t-shirt!";
-}
-else {
-	weatherString = "Its "+response.currently.temperature+" degrees..... its boiling out.";
-}
-setWeather();
+    url: "https://api.darksky.net/forecast/62296b6b9da67149d9f8d8f4e2949f50/40.893247,-74.011654",
+    method: "GET"
+}).done(function(response) {
+    console.log(response.currently.temperature);
+    if (response.currently.temperature < 0) {
+        weatherString = "Its " + response.currently.temperature + " degrees..... ITS FREEZING!";
+    } else if (response.currently.temperature < 40) {
+        weatherString = "Its " + response.currently.temperature + " degrees..... bundle up!";
+    } else if (response.currently.temperature < 65) {
+        weatherString = "Its " + response.currently.temperature + " degrees outside..... you need a light jacket.";
+    } else if (response.currently.temperature < 80) {
+        weatherString = "Its " + response.currently.temperature + " degrees outside..... no need for extra layers!";
+    } else if (response.currently.temperature < 100) {
+        weatherString = "Its " + response.currently.temperature + " degrees outside..... wear shorts and a t-shirt!";
+    } else {
+        weatherString = "Its " + response.currently.temperature + " degrees..... its boiling out.";
+    }
+    setWeather();
 });
 
 
-function setWeather(){
-	(function(weather){
-		  weather.getElementsByTagName("weather")[0].innerHTML = weatherString;
-})(this.document); }
+function setWeather() {
+    (function(weather) {
+        weather.getElementsByTagName("weather")[0].innerHTML = weatherString;
+    })(this.document);
+}
 //***********END OF WEATHER API AND FUNCTION***********//
+
+
 
 //bing image of the day!!!!!!
 $.ajax({
-	url:"http://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1",
-	method:"GET"
-	}).done(function(response){
-		 url ="http://bing.com"+response.images[0].url;
-		console.log(url);
+    url: "http://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1",
+    method: "GET"
+}).done(function(response) {
+    url = "http://bing.com" + response.images[0].url;
+    console.log(url);
+    $("body").css("background-image", "url(" + url + ")");
+    getImageBrightness(url);
 
-$("body").css("background-image", "url("+url+")");
-	
 });
 
+
+function getImageBrightness(imageSrc) {
+    var img = document.createElement("img");
+    img.src = imageSrc;
+    img.style.display = "none";
+    document.body.appendChild(img);
+
+    var colorSum = 0;
+
+    img.onload = function() {
+        // create canvas
+        var canvas = document.createElement("canvas");
+        canvas.width = this.width;
+        canvas.height = this.height;
+
+        var ctx = canvas.getContext("2d");
+        ctx.drawImage(this, 0, 0);
+
+        var imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        var data = imageData.data;
+        var r, g, b, avg;
+
+        for (var x = 0, len = data.length; x < len; x += 4) {
+            r = data[x];
+            g = data[x + 1];
+            b = data[x + 2];
+
+            avg = Math.floor((r + g + b) / 3);
+            colorSum += avg;
+        }
+
+        brightness = Math.floor(colorSum / (this.width * this.height));
+        console.log(brightness);
+
+        if (brightness < 150) {
+            $(".contrast").css("color", "white");
+        } else {
+            $(".contrast").css("color", "black");
+        }
+    }
+}
+
+
+
 //*****************************//
-setInterval(function(){
-//get the variables
-hours = currentdate.getHours();
-year = currentdate.getFullYear();
-hours = currentdate.getHours();
-minutes = currentdate.getMinutes();
-seconds = currentdate.getSeconds();
-currentdate = new Date(); 
-welcomeMessage = "";
-setWelcomeMessage();
-setName();
-setTheDate();
-setTheTime();   
+setInterval(function() {
+
+    //get the variables
+    hours = currentdate.getHours();
+    year = currentdate.getFullYear();
+    hours = currentdate.getHours();
+    minutes = currentdate.getMinutes();
+    seconds = currentdate.getSeconds();
+    currentdate = new Date();
+    welcomeMessage = "";
+    setWelcomeMessage();
+    setName();
+    setTheDate();
+    setTheTime();
 }, 1000);
 /*
         _         _         _         _    

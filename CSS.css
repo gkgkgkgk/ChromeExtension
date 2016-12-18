@@ -8,3 +8,12 @@ body {
 .textWhite {
 color: white;
 }
+
+.light {
+  color: #000;
+}
+
+// Light text
+.dark {
+  color: #fff;
+}
