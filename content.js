@@ -68,7 +68,7 @@ function setTheTime(){
 }
 
 //***********WEATHER API AND FUNCTION***********//
-
+//
 $.ajax({
 	url:"https://api.darksky.net/forecast/62296b6b9da67149d9f8d8f4e2949f**/40.893247,-74.011654",
 	method:"GET"
