@@ -85,7 +85,7 @@ function setName() {
 function setTheDate() {
     (function(d) {
         var date = monthString + 
-            dateDay +" " +
+            dateDay +", " +
             year;
 
         d.getElementsByTagName("date")[0].innerHTML = date;
@@ -95,6 +95,7 @@ function setTheDate() {
 function setTheTime() {
     (function(c) {
         var newHours = hours;
+		var zero = "";
         if (hours > 12) {
             status = "PM";
             newHours -= 12;
@@ -102,7 +103,11 @@ function setTheTime() {
             newHours = hours;
             status = "AM";
         }
-        var time = newHours + ":" +
+		if(minutes<10){
+			zero = "0";
+		}
+		
+        var time = newHours + ":" + zero+
             minutes + " " +
             status;
         c.getElementsByTagName("time")[0].innerHTML = time;
