@@ -8,3 +8,29 @@ html, body {
   background-repeat:no-repeat;
   background-size:cover;
 }
+
+@font-face {
+    font-family: 'font1'; /*a name to be used later*/
+    src: url('fonts/Code Bold.otf'); /*URL to font*/
+}
+
+
+.contrast {
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	}
+	
+name {
+  margin: .67em 0;
+  font-size: 2em;
+  font-family: 'font1';
+}
+
+.vignette {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  box-shadow: 0 0 200px rgba(0,0,0,0.9) inset;
+}

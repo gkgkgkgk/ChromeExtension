@@ -78,7 +78,7 @@ function setWelcomeMessage() {
 function setName() {
     (function(name) {
         var nameString = "Gavri";
-        name.getElementsByTagName("name")[0].innerHTML = welcomeMessage + nameString;
+        name.getElementsByTagName("name")[0].innerHTML = welcomeMessage + nameString +".";
     })(this.document);
 }
 
@@ -118,7 +118,7 @@ function setTheTime() {
 //***********WEATHER API AND FUNCTION***********//
 //
 $.ajax({
-    url: "https://api.darksky.net/forecast/df55ad28ed421bfb018716b400aeec49/40.893247,-74.011654",
+    url: "https://api.darksky.net/forecast/f1f08a02e482dfe09be8bb7c33d1d1b3/40.893247,-74.011654",
     method: "GET"
 }).done(function(response) {
     console.log(response.currently.temperature);
@@ -195,16 +195,18 @@ function getImageBrightness(imageSrc) {
         console.log(brightness);
 
         if (brightness < 150) {
-            $(".contrast").css("color", "white");
-            $(".contrast").css("text-shadow", "-2px 0 black, 0 2px black, 2px 0 black, 0 -2px black");
+        	 $(".contrast").css("-webkit-text-fill-color", "white");
+            $(".contrast").css("-webkit-text-stroke", "0.01em black");
+            $(".contrast").css("text-shadow", "0 0 1px black, 0 0 3px black");
+
 
         }
-       /* else if (brightness < 150){
-        	 $(".contrast").css("color", "grey");        	
-        	} */
         else{
-        	 $(".contrast").css("color", "black");
-        	 $(".contrast").css("text-shadow", "-2px 0 white, 0 2px white, 2px 0 white, 0 -2px white");
+
+        	 $(".contrast").css("-webkit-text-fill-color", "black");
+             $(".contrast").css("-webkit-text-stroke", "0.01px white");
+            $(".contrast").css("text-shadow", "0 0 1px white, 0 0 5px white");
+
         	}
         	
     }
