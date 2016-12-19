@@ -52,7 +52,7 @@ switch(month){
 	monthString = "December ";
 	break;
 	default:
-	monthString = "";
+	monthString = "This probably wont happen";
 	break;
 }
 setWelcomeMessage();
@@ -71,7 +71,7 @@ function setWelcomeMessage() {
     } else if (hours >= 17) {
         welcomeMessage = "Good Evening, "
     } else {
-        welcomeMessage = "Out of bounds";
+        welcomeMessage = "Again, This probably wont happen";
     }
 }
 
@@ -118,22 +118,22 @@ function setTheTime() {
 //***********WEATHER API AND FUNCTION***********//
 //
 $.ajax({
-    url: "https://api.darksky.net/forecast/ae3d8da8d2ef912fa9992d10e0ec54fe/40.893247,-74.011654",
+    url: "https://api.darksky.net/forecast/df55ad28ed421bfb018716b400aeec49/40.893247,-74.011654",
     method: "GET"
 }).done(function(response) {
     console.log(response.currently.temperature);
     if (response.currently.temperature < 0) {
-        weatherString = "Its " + response.currently.temperature + " degrees..... ITS FREEZING!";
+        weatherString = "Its " + response.currently.temperature + " degrees... wear a heavy coat or dont go outside.";
     } else if (response.currently.temperature < 40) {
-        weatherString = "Its " + response.currently.temperature + " degrees..... bundle up!";
+        weatherString = "Its " + response.currently.temperature + " degrees... wear a coat.";
     } else if (response.currently.temperature < 65) {
-        weatherString = "Its " + response.currently.temperature + " degrees outside..... you need a light jacket.";
+        weatherString = "Its " + response.currently.temperature + " degrees outside..... wear a vest.";
     } else if (response.currently.temperature < 80) {
-        weatherString = "Its " + response.currently.temperature + " degrees outside..... no need for extra layers!";
+        weatherString = "Its " + response.currently.temperature + " degrees outside..... vest optional.";
     } else if (response.currently.temperature < 100) {
-        weatherString = "Its " + response.currently.temperature + " degrees outside..... wear shorts and a t-shirt!";
+        weatherString = "Its " + response.currently.temperature + " degrees outside..... beautiful day, stay hydrated.";
     } else {
-        weatherString = "Its " + response.currently.temperature + " degrees..... its boiling out.";
+        weatherString = "Its " + response.currently.temperature + " degrees..... hydrate or stay indoors.";
     }
     setWeather();
 });
@@ -196,9 +196,17 @@ function getImageBrightness(imageSrc) {
 
         if (brightness < 150) {
             $(".contrast").css("color", "white");
-        } else {
-            $(".contrast").css("color", "black");
+            $(".contrast").css("text-shadow", "-2px 0 black, 0 2px black, 2px 0 black, 0 -2px black");
+
         }
+       /* else if (brightness < 150){
+        	 $(".contrast").css("color", "grey");        	
+        	} */
+        else{
+        	 $(".contrast").css("color", "black");
+        	 $(".contrast").css("text-shadow", "-2px 0 white, 0 2px white, 2px 0 white, 0 -2px white");
+        	}
+        	
     }
 }
 

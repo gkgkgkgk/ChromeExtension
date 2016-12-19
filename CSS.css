@@ -8,16 +8,3 @@ html, body {
   background-repeat:no-repeat;
   background-size:cover;
 }
-
-.textWhite {
-color: white;
-}
-
-.light {
-  color: #000;
-}
-
-// Light text
-.dark {
-  color: #fff;
-}
