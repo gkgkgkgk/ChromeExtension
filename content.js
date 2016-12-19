@@ -3,15 +3,58 @@ var currentdate = new Date();
 var welcomeMessage = "";
 var dateDay = currentdate.getDate();
 var month = currentdate.getMonth()
+var monthString = "";
 var year = currentdate.getFullYear();
 var hours = currentdate.getHours();
 var minutes = currentdate.getMinutes();
-var seconds = currentdate.getSeconds();
 var status = "AM";
 var weatherString = "weather";
 var url = "temp!"
 var brightness = 0;
 
+
+
+switch(month){
+	case 0:
+	monthString = "January ";
+	break;
+	case 1:
+	monthString = "February ";
+	break;
+	case 2:
+	monthString = "March ";
+	break;
+	case 3:
+	monthString = "April ";
+	break;
+	case 4:
+	monthString = "May ";
+	break;
+	case 5:
+	monthString = "June ";
+	break;
+	case 6:
+	monthString = "July ";
+	break;
+	case 7:
+	monthString = "August ";
+	break;
+	case 8:
+	monthString = "September ";
+	break;
+	case 9:
+	monthString = "October ";
+	break;
+	case 10:
+	monthString = "November ";
+	break;
+	case 11:
+	monthString = "December ";
+	break;
+	default:
+	monthString = "";
+	break;
+}
 setWelcomeMessage();
 setName();
 setTheDate();
@@ -41,8 +84,8 @@ function setName() {
 
 function setTheDate() {
     (function(d) {
-        var date = (month + 1) + "/" +
-            dateDay + "/" +
+        var date = monthString + 
+            dateDay +" " +
             year;
 
         d.getElementsByTagName("date")[0].innerHTML = date;
@@ -60,8 +103,7 @@ function setTheTime() {
             status = "AM";
         }
         var time = newHours + ":" +
-            minutes + ":" +
-            seconds + " " +
+            minutes + " " +
             status;
         c.getElementsByTagName("time")[0].innerHTML = time;
 
@@ -71,7 +113,7 @@ function setTheTime() {
 //***********WEATHER API AND FUNCTION***********//
 //
 $.ajax({
-    url: "https://api.darksky.net/forecast/62296b6b9da67149d9f8d8f4e2949f50/40.893247,-74.011654",
+    url: "https://api.darksky.net/forecast/ae3d8da8d2ef912fa9992d10e0ec54fe/40.893247,-74.011654",
     method: "GET"
 }).done(function(response) {
     console.log(response.currently.temperature);
@@ -165,7 +207,6 @@ setInterval(function() {
     year = currentdate.getFullYear();
     hours = currentdate.getHours();
     minutes = currentdate.getMinutes();
-    seconds = currentdate.getSeconds();
     currentdate = new Date();
     welcomeMessage = "";
     setWelcomeMessage();
