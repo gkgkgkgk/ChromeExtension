@@ -14,46 +14,46 @@ var brightness = 0;
 
 
 
-switch(month){
-	case 0:
-	monthString = "January ";
-	break;
-	case 1:
-	monthString = "February ";
-	break;
-	case 2:
-	monthString = "March ";
-	break;
-	case 3:
-	monthString = "April ";
-	break;
-	case 4:
-	monthString = "May ";
-	break;
-	case 5:
-	monthString = "June ";
-	break;
-	case 6:
-	monthString = "July ";
-	break;
-	case 7:
-	monthString = "August ";
-	break;
-	case 8:
-	monthString = "September ";
-	break;
-	case 9:
-	monthString = "October ";
-	break;
-	case 10:
-	monthString = "November ";
-	break;
-	case 11:
-	monthString = "December ";
-	break;
-	default:
-	monthString = "This probably wont happen";
-	break;
+switch (month) {
+    case 0:
+        monthString = "January ";
+        break;
+    case 1:
+        monthString = "February ";
+        break;
+    case 2:
+        monthString = "March ";
+        break;
+    case 3:
+        monthString = "April ";
+        break;
+    case 4:
+        monthString = "May ";
+        break;
+    case 5:
+        monthString = "June ";
+        break;
+    case 6:
+        monthString = "July ";
+        break;
+    case 7:
+        monthString = "August ";
+        break;
+    case 8:
+        monthString = "September ";
+        break;
+    case 9:
+        monthString = "October ";
+        break;
+    case 10:
+        monthString = "November ";
+        break;
+    case 11:
+        monthString = "December ";
+        break;
+    default:
+        monthString = "This probably wont happen";
+        break;
 }
 setWelcomeMessage();
 setName();
@@ -64,28 +64,31 @@ setTheTime();
 
 
 function setWelcomeMessage() {
-    if (hours <= 12 && hours > 4) {
+    if(hours <= 4){
+    	welcomeMessage = "Good Evening, "
+    	}
+    else if (hours <= 12) {
         welcomeMessage = "Good Morning, "
-    } else if (hours > 12 && hours < 17) {
+    }  
+    else if (hours < 17) {
         welcomeMessage = "Good Afternoon, "
-    } else if (hours >= 17) {
+    }  
+    if (hours >= 17) {
         welcomeMessage = "Good Evening, "
-    } else {
-        welcomeMessage = "Again, This probably wont happen";
+    } 
     }
-}
 
 function setName() {
     (function(name) {
         var nameString = "Gavri";
-        name.getElementsByTagName("name")[0].innerHTML = welcomeMessage + nameString +".";
+        name.getElementsByTagName("name")[0].innerHTML = welcomeMessage + nameString + ".";
     })(this.document);
 }
 
 function setTheDate() {
     (function(d) {
-        var date = monthString + 
-            dateDay +", " +
+        var date = monthString +
+            dateDay + ", " +
             year;
 
         d.getElementsByTagName("date")[0].innerHTML = date;
@@ -95,7 +98,7 @@ function setTheDate() {
 function setTheTime() {
     (function(c) {
         var newHours = hours;
-		var zero = "";
+        var zero = "";
         if (hours > 12) {
             status = "PM";
             newHours -= 12;
@@ -103,11 +106,11 @@ function setTheTime() {
             newHours = hours;
             status = "AM";
         }
-		if(minutes<10){
-			zero = "0";
-		}
-		
-        var time = newHours + ":" + zero+
+        if (minutes < 10) {
+            zero = "0";
+        }
+
+        var time = newHours + ":" + zero +
             minutes + " " +
             status;
         c.getElementsByTagName("time")[0].innerHTML = time;
@@ -118,22 +121,22 @@ function setTheTime() {
 //***********WEATHER API AND FUNCTION***********//
 //
 $.ajax({
-    url: "https://api.darksky.net/forecast/f1f08a02e482dfe09be8bb7c33d1d1b3/40.893247,-74.011654",
+    url: "https://api.darksky.net/forecast/b98bd86878a29213817fe65564236283/40.893247,-74.011654",
     method: "GET"
 }).done(function(response) {
     console.log(response.currently.temperature);
     if (response.currently.temperature < 0) {
-        weatherString = "Its " + response.currently.temperature + " degrees... wear a heavy coat or dont go outside.";
+        weatherString = "Its " + Math.round(response.currently.temperature) + " degrees... wear a heavy coat or dont go outside.";
     } else if (response.currently.temperature < 40) {
-        weatherString = "Its " + response.currently.temperature + " degrees... wear a coat.";
+        weatherString = "Its " + Math.round(response.currently.temperature) + " degrees... wear a coat.";
     } else if (response.currently.temperature < 65) {
-        weatherString = "Its " + response.currently.temperature + " degrees outside..... wear a vest.";
+        weatherString = "Its " + Math.round(response.currently.temperature) + " degrees outside..... wear a vest.";
     } else if (response.currently.temperature < 80) {
-        weatherString = "Its " + response.currently.temperature + " degrees outside..... vest optional.";
+        weatherString = "Its " + Math.round(response.currently.temperature) + " degrees outside..... vest optional.";
     } else if (response.currently.temperature < 100) {
-        weatherString = "Its " + response.currently.temperature + " degrees outside..... beautiful day, stay hydrated.";
+        weatherString = "Its " + Math.round(response.currently.temperature) + " degrees outside..... beautiful day, stay hydrated.";
     } else {
-        weatherString = "Its " + response.currently.temperature + " degrees..... hydrate or stay indoors.";
+        weatherString = "Its " + Math.round(response.currently.temperature) + " degrees..... hydrate or stay indoors.";
     }
     setWeather();
 });
@@ -195,20 +198,19 @@ function getImageBrightness(imageSrc) {
         console.log(brightness);
 
         if (brightness < 150) {
-        	 $(".contrast").css("-webkit-text-fill-color", "white");
+            $(".contrast").css("-webkit-text-fill-color", "white");
             $(".contrast").css("-webkit-text-stroke", "0.01em black");
-            $(".contrast").css("text-shadow", "0 0 1px black, 0 0 3px black");
+            $(".contrast").css("text-shadow", "0 0 1em black, 0 0 3em black");
 
 
-        }
-        else{
+        } else {
 
-        	 $(".contrast").css("-webkit-text-fill-color", "black");
-             $(".contrast").css("-webkit-text-stroke", "0.01px white");
+            $(".contrast").css("-webkit-text-fill-color", "black");
+            $(".contrast").css("-webkit-text-stroke", "0.01px white");
             $(".contrast").css("text-shadow", "0 0 1px white, 0 0 5px white");
 
-        	}
-        	
+        }
+
     }
 }
 
@@ -216,7 +218,6 @@ function getImageBrightness(imageSrc) {
 
 //*****************************//
 setInterval(function() {
-
     //get the variables
     hours = currentdate.getHours();
     year = currentdate.getFullYear();
