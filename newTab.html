@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,14 +14,29 @@
          </h3>
          </a>
     </div>
-    <h1 style=" margin: 0;
+    <div style=" margin: 0;
          position: absolute;
          top: 50%;
          left: 50%;
          margin-right: -50%;
-         transform: translate(-50%, -50%)" class="contrast" id="name">
+         transform: translate(-50%, -50%);
+         text-align: center;"
+         >
+    <h1 class="contrast" id="message">
+         <message>
+      </h1>
+      <h1 class="contrast" id="name">
          <name>
       </h1>
+      <form class = "form-inline" id = "changeName">
+      <div class="input-group input-group-lg">
+      <input type="text" class="form-control" placeholder="Change to..." style ="width = 50%" id = "nameInput">
+      <span class="input-group-btn">
+        <button class="btn btn-secondary" type="button" onclick="changeName();">Go!</button>
+      </span>
+    </div>
+    </form>
+         </div>
     <div style=" margin: 0;
          position: absolute;
          top: 95%;

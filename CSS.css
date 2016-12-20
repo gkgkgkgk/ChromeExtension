@@ -11,8 +11,7 @@ body {
 }
 @font-face {
     font-family: 'font1';
-    /*a name to be used later*/
-    
+    /*a name to be used later*/   
     src: url('fonts/Code Bold.otf');
     /*URL to font*/
 }
@@ -33,6 +32,14 @@ name {
     margin: .67em 0;
     font-size: 2em;
     font-family: 'font1';
+    vertical-align:middle;
+    text-align: center;
+}
+message {
+    margin: .67em 0;
+    font-size: 2em;
+    font-family: 'font1';
+    text-align: center;
 }
 .vignette {
     position: fixed;

@@ -1,6 +1,14 @@
+chrome.runtime.onInstalled.addListener(function(details){
+    if(details.reason == "install"){
+        console.log("This is a first install!");
+    }else if(details.reason == "update"){
+        var thisVersion = chrome.runtime.getManifest().version;
+        console.log("Updated from " + details.previousVersion + " to " + thisVersion + "!");
+    }
+});
 //*****************************//
+//Date and Time
 var currentdate = new Date();
-var welcomeMessage = "";
 var dateDay = currentdate.getDate();
 var month = currentdate.getMonth()
 var monthString = "";
@@ -8,12 +16,17 @@ var year = currentdate.getFullYear();
 var hours = currentdate.getHours();
 var minutes = currentdate.getMinutes();
 var status = "AM";
+//message and text
+var welcomeMessage = "";
+var brightness = 0;
+var nameString = "Gavri";
+//weather variables
 var weatherString = "weather";
 var url = "temp!"
-var brightness = 0;
+var DarkSkyKey = "681451d1f8919d50f53a8476696333fc";
 
-
-
+$('#changeName').hide();
+//find name of month from number
 switch (month) {
     case 0:
         monthString = "January ";
@@ -52,17 +65,17 @@ switch (month) {
         monthString = "December ";
         break;
     default:
-        monthString = "This probably wont happen";
+        monthString = "This probably shoud not happen";
         break;
 }
+
+//run all the functions once
 setWelcomeMessage();
 setName();
 setTheDate();
 setTheTime();
 
-
-
-
+//****//
 function setWelcomeMessage() {
     if(hours <= 4){
     	welcomeMessage = "Good Evening, "
@@ -73,28 +86,58 @@ function setWelcomeMessage() {
     else if (hours < 17) {
         welcomeMessage = "Good Afternoon, "
     }  
-    if (hours >= 17) {
+    else if (hours >= 17) {
         welcomeMessage = "Good Evening, "
     } 
+    
+    (function(message) {
+        message.getElementsByTagName("message")[0].innerHTML = welcomeMessage;
+    })(this.document);
     }
 
-function setName() {
-    (function(name) {
-        var nameString = "Gavri";
-        name.getElementsByTagName("name")[0].innerHTML = welcomeMessage + nameString + ".";
+
+function setName(){
+    	(function(Name) {
+        Name.getElementsByTagName("name")[0].innerHTML = nameString;
     })(this.document);
-}
+    	 }
+    	 
+    	 
+function resetName(){
+	(function(Name) {
+        Name.getElementsByTagName("message")[0].innerHTML = welcomeMessage;
+    })(this.document);
+    (function(Name) {
+        Name.getElementsByTagName("name")[0].innerHTML = nameString;
+    })(this.document);
+	}
+	
+	
+document.addEventListener('DOMContentLoaded', function() {
+  document.getElementById("click-this").addEventListener("click", changeName);
+});
+
+	
+function changeName(){
+	setWelcomeMessage();
+	(function(Name) {
+        Name.getElementsByTagName("name")[0].innerHTML = $("#nameInput").val;
+    })(this.document);
+
+	}
+//****//
+
+
 
 function setTheDate() {
     (function(d) {
         var date = monthString +
             dateDay + ", " +
             year;
-
         d.getElementsByTagName("date")[0].innerHTML = date;
     })(this.document);
 }
-
+//****//
 function setTheTime() {
     (function(c) {
         var newHours = hours;
@@ -121,7 +164,7 @@ function setTheTime() {
 //***********WEATHER API AND FUNCTION***********//
 //
 $.ajax({
-    url: "https://api.darksky.net/forecast/b98bd86878a29213817fe65564236283/40.893247,-74.011654",
+    url: "https://api.darksky.net/forecast/"+DarkSkyKey+"/40.893247,-74.011654",
     method: "GET"
 }).done(function(response) {
     console.log(response.currently.temperature);
@@ -130,26 +173,23 @@ $.ajax({
     } else if (response.currently.temperature < 40) {
         weatherString = "Its " + Math.round(response.currently.temperature) + " degrees... wear a coat.";
     } else if (response.currently.temperature < 65) {
-        weatherString = "Its " + Math.round(response.currently.temperature) + " degrees outside..... wear a vest.";
+        weatherString = "Its " + Math.round(response.currently.temperature) + " degrees outside... wear a vest.";
     } else if (response.currently.temperature < 80) {
-        weatherString = "Its " + Math.round(response.currently.temperature) + " degrees outside..... vest optional.";
+        weatherString = "Its " + Math.round(response.currently.temperature) + " degrees outside... vest optional.";
     } else if (response.currently.temperature < 100) {
-        weatherString = "Its " + Math.round(response.currently.temperature) + " degrees outside..... beautiful day, stay hydrated.";
+        weatherString = "Its " + Math.round(response.currently.temperature) + " degrees outside... beautiful day, stay hydrated.";
     } else {
-        weatherString = "Its " + Math.round(response.currently.temperature) + " degrees..... hydrate or stay indoors.";
+        weatherString = "Its " + Math.round(response.currently.temperature) + " degrees... hydrate or stay indoors.";
     }
     setWeather();
 });
-
-
+//****//
 function setWeather() {
     (function(weather) {
         weather.getElementsByTagName("weather")[0].innerHTML = weatherString;
     })(this.document);
 }
 //***********END OF WEATHER API AND FUNCTION***********//
-
-
 
 //bing image of the day!!!!!!
 $.ajax({
@@ -163,7 +203,7 @@ $.ajax({
 
 });
 
-
+//****//
 function getImageBrightness(imageSrc) {
     var img = document.createElement("img");
     img.src = imageSrc;
@@ -215,19 +255,24 @@ function getImageBrightness(imageSrc) {
 }
 
 
-
+$(function() {
+    $('#name').on('click', function() {
+        $('#changeName').show(); //show textbox
+        $(this).hide();
+        welcomeMessage = "Would you like to change your name?";
+        resetName();
+    });
+   });
 //*****************************//
 setInterval(function() {
-    //get the variables
+
+    //refresh the time variables
     hours = currentdate.getHours();
     year = currentdate.getFullYear();
     hours = currentdate.getHours();
     minutes = currentdate.getMinutes();
     currentdate = new Date();
-    welcomeMessage = "";
-    setWelcomeMessage();
-    setName();
-    setTheDate();
+	//refresh time
     setTheTime();
 }, 1000);
 /*
