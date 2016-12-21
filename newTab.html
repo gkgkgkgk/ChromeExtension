@@ -14,14 +14,7 @@
          </h3>
          </a>
     </div>
-    <div style=" margin: 0;
-         position: absolute;
-         top: 50%;
-         left: 50%;
-         margin-right: -50%;
-         transform: translate(-50%, -50%);
-         text-align: center;"
-         >
+    <div class = "centered">
     <h1 class="contrast" id="message">
          <message>
       </h1>
@@ -30,9 +23,9 @@
       </h1>
       <form class = "form-inline" id = "changeName">
       <div class="input-group input-group-lg">
-      <input type="text" class="form-control" placeholder="Change to..." style ="width = 50%" id = "nameInput">
+      <input type="text" class="form-control" placeholder="Change to..." style ="width = 50%; background-color:rgba(0,0,0,0) !important;" id = "nameInput">
       <span class="input-group-btn">
-        <button class="btn btn-secondary" type="button" onclick="changeName();">Go!</button>
+        <button class="btn btn-secondary" type="button" id="nameButton">Go!</button>
       </span>
     </div>
     </form>

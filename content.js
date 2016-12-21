@@ -6,6 +6,9 @@ chrome.runtime.onInstalled.addListener(function(details){
         console.log("Updated from " + details.previousVersion + " to " + thisVersion + "!");
     }
 });
+
+
+
 //*****************************//
 //Date and Time
 var currentdate = new Date();
@@ -19,11 +22,18 @@ var status = "AM";
 //message and text
 var welcomeMessage = "";
 var brightness = 0;
-var nameString = "Gavri";
+chrome.storage.sync.get("nameSaved", function(name) {
+console.log(name.nameSaved);
+nameString = name.nameSaved;
+setName();
+});
+
+var nameString = "Click Here to Edit Name";
+
 //weather variables
 var weatherString = "weather";
 var url = "temp!"
-var DarkSkyKey = "681451d1f8919d50f53a8476696333fc";
+var DarkSkyKey = "280a3c02dd639f82a2e65c91ae3e219a";
 
 $('#changeName').hide();
 //find name of month from number
@@ -97,7 +107,9 @@ function setWelcomeMessage() {
 
 
 function setName(){
+
     	(function(Name) {
+
         Name.getElementsByTagName("name")[0].innerHTML = nameString;
     })(this.document);
     	 }
@@ -112,22 +124,18 @@ function resetName(){
     })(this.document);
 	}
 	
-	
-document.addEventListener('DOMContentLoaded', function() {
-  document.getElementById("click-this").addEventListener("click", changeName);
-});
-
-	
 function changeName(){
+	nameString = $("#nameInput").val();
+	 chrome.storage.sync.set({'nameSaved': nameString}, function() {
+
+        });
 	setWelcomeMessage();
-	(function(Name) {
-        Name.getElementsByTagName("name")[0].innerHTML = $("#nameInput").val;
-    })(this.document);
+	resetName();
+	$("#name").show(500);
+	$('#changeName').hide(500);
+}
 
-	}
 //****//
-
-
 
 function setTheDate() {
     (function(d) {
@@ -254,18 +262,25 @@ function getImageBrightness(imageSrc) {
     }
 }
 
+document.addEventListener('DOMContentLoaded', function() {
+  document.getElementById("nameButton").addEventListener("click", changeName);
+});
 
 $(function() {
-    $('#name').on('click', function() {
-        $('#changeName').show(); //show textbox
-        $(this).hide();
+    $('#name').on('dblclick', function() {
+        $(this).hide(500);
+		$('#changeName').fadeIn("fast"); //show textbox
         welcomeMessage = "Would you like to change your name?";
         resetName();
     });
    });
+   
+   
+   
+   
+   
 //*****************************//
 setInterval(function() {
-
     //refresh the time variables
     hours = currentdate.getHours();
     year = currentdate.getFullYear();
