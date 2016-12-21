@@ -33,7 +33,7 @@ var nameString = "Click Here to Edit Name";
 //weather variables
 var weatherString = "weather";
 var url = "temp!"
-var DarkSkyKey = "97d81c88df7c99598b0b71100324abb9";
+var DarkSkyKey = "5dc4dd4d38441fc51019644eecc7f199";
 
 $('#changeName').hide();
 //find name of month from number
@@ -245,10 +245,10 @@ function getImageBrightness(imageSrc) {
         brightness = Math.floor(colorSum / (this.width * this.height));
         console.log(brightness);
 
-        if (brightness < 150) {
+        if (brightness < 200) {
             $(".contrast").css("-webkit-text-fill-color", "white");
             //$(".contrast").css("-webkit-text-stroke", "0.02em black");
-            $(".contrast").css("text-shadow", "0 0 1em black, 0 0 3em black");
+            $(".contrast").css("text-shadow", "0 0 0.5em black, 0 0 1em black");
 
 
         } else {
@@ -268,14 +268,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
 $(function() {
     $('#name').on('dblclick', function() {
-        $(this).hide(500);
-		$('#changeName').fadeIn("medium"); //show textbox
+        $('#changeName').show("medium"); //show textbox
+        $(this).fadeOut(500);
         welcomeMessage = "Would you like to change your name?";
         resetName();
     });
    });
-   
-   
    
    
    

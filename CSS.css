@@ -1,11 +1,9 @@
 html,
 body {
     display: table;
-    position: absolute;
     height: 100%;
     width: 100%;
     margin: 0;
-    overflow: hidden;
     background-repeat: no-repeat;
     background-size: cover;
 }
@@ -31,26 +29,19 @@ body {
 }
 #name {
 
-    font-size: 6em;
+    font-size: 5em;
     font-family: 'font1';
- vertical-align: middle;
-          text-align: center;
 
  
 }
+
 #message {
-    font-size: 6em;
+    font-size: 5em;
     font-family: 'font1';
- vertical-align: middle;
-          text-align: center;
 
  }
  
-#changeName {
-	vertical-align: middle;
-	         text-align: center;
 
-} 
  
 .vignette {
     position: fixed;
@@ -63,13 +54,7 @@ body {
 
 
 
-.centered {
- margin: 0 auto;
-     text-align: center;
-	 margin-left: auto;
-   margin-right: auto;
-transform: translate(0%, 100%);
-   }
+
 
 .form-control::-moz-placeholder {
   color: grey;
