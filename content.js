@@ -33,7 +33,7 @@ var nameString = "Click Here to Edit Name";
 //weather variables
 var weatherString = "weather";
 var url = "temp!"
-var DarkSkyKey = "280a3c02dd639f82a2e65c91ae3e219a";
+var DarkSkyKey = "97d81c88df7c99598b0b71100324abb9";
 
 $('#changeName').hide();
 //find name of month from number
@@ -247,7 +247,7 @@ function getImageBrightness(imageSrc) {
 
         if (brightness < 150) {
             $(".contrast").css("-webkit-text-fill-color", "white");
-            $(".contrast").css("-webkit-text-stroke", "0.01em black");
+            //$(".contrast").css("-webkit-text-stroke", "0.02em black");
             $(".contrast").css("text-shadow", "0 0 1em black, 0 0 3em black");
 
 
