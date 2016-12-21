@@ -269,7 +269,7 @@ document.addEventListener('DOMContentLoaded', function() {
 $(function() {
     $('#name').on('dblclick', function() {
         $(this).hide(500);
-		$('#changeName').fadeIn("fast"); //show textbox
+		$('#changeName').fadeIn("medium"); //show textbox
         welcomeMessage = "Would you like to change your name?";
         resetName();
     });

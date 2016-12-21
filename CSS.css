@@ -11,12 +11,13 @@ body {
 }
 @font-face {
     font-family: 'font1';
+	font-smooth: always;
     /*a name to be used later*/   
     src: url('fonts/Code Bold.otf');
     /*URL to font*/
 }
 .contrast {
-    -webkit-font-smoothing: antialiased;
+    -webkit-font-smoothing: subpixel-antialiased;
     -moz-osx-font-smoothing: grayscale;
     -webkit-user-select: none;
     /* Chrome/Safari */
@@ -32,16 +33,23 @@ body {
 
     font-size: 6em;
     font-family: 'font1';
- vertical-align: middle;	
+ vertical-align: middle;
+          text-align: center;
+
+ 
 }
 #message {
     font-size: 6em;
     font-family: 'font1';
  vertical-align: middle;
+          text-align: center;
+
  }
  
 #changeName {
 	vertical-align: middle;
+	         text-align: center;
+
 } 
  
 .vignette {
@@ -56,12 +64,19 @@ body {
 
 
 .centered {
-		margin: 0;
-         position: absolute;
-         top: 50%;
-         left: 50%;
-         margin-right: -50%;
-         transform: translate(-50%, -50%);
-         text-align: center;
+ margin: 0 auto;
+     text-align: center;
+	 margin-left: auto;
+   margin-right: auto;
+transform: translate(0%, 100%);
+   }
 
+.form-control::-moz-placeholder {
+  color: grey;
+}
+.form-control:-ms-input-placeholder {
+  color: grey;
+}
+.form-control::-webkit-input-placeholder {
+  color: grey;
 }
