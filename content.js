@@ -32,7 +32,11 @@ var nameString = "Click Here to Edit Name";
 //weather variables
 var weatherString = "weather";
 var url = "temp!"
-var DarkSkyKey = "5dc4dd4d38441fc51019644eecc7f199";
+var DarkSkyKey = "10fa33c4630b46a9705797dd316a6bb6";
+var precip = 0;
+var summary = "";
+var temperature = 0;
+
 
 $('#changeName').hide();
 //find name of month from number
@@ -133,6 +137,13 @@ function changeName(){
 	$("#name").show(150);
 	$('#changeName').hide(150);
 }
+function cancelName(){
+	setWelcomeMessage();
+	resetName();
+	$("#name").show(150);
+	$('#changeName').hide(150);
+}
+
 
 //****//
 
@@ -149,8 +160,11 @@ function setTheTime() {
     (function(c) {
         var newHours = hours;
         var zero = "";
-        if (hours > 12) {
-            status = "PM";
+        if(hours == 12){
+        	status = "PM";
+        	newHours = hours;
+        	}
+        else if (hours > 12) {
             newHours -= 12;
         } else {
             newHours = hours;
@@ -175,22 +189,33 @@ $.ajax({
     method: "GET"
 }).done(function(response) {
     console.log(response.currently.temperature);
-    if (response.currently.temperature < 0) {
-        weatherString = "Its " + Math.round(response.currently.temperature) + " degrees... wear a heavy coat or dont go outside.";
-    } else if (response.currently.temperature < 40) {
-        weatherString = "Its " + Math.round(response.currently.temperature) + " degrees... wear a coat.";
-    } else if (response.currently.temperature < 65) {
-        weatherString = "Its " + Math.round(response.currently.temperature) + " degrees outside... wear a vest.";
-    } else if (response.currently.temperature < 80) {
-        weatherString = "Its " + Math.round(response.currently.temperature) + " degrees outside... vest optional.";
-    } else if (response.currently.temperature < 100) {
-        weatherString = "Its " + Math.round(response.currently.temperature) + " degrees outside... beautiful day, stay hydrated.";
-    } else {
-        weatherString = "Its " + Math.round(response.currently.temperature) + " degrees... hydrate or stay indoors.";
-    }
-    setWeather();
+    console.log(response.currently.summary);
+    console.log(response.currently.precipProbability);
+	summary = response.currently.summary;
+	precip = response.currently.precipProbability;
+	temperature = response.currently.temperature;
+        setWeatherString();
+        setWeather();
 });
 //****//
+function setWeatherString(){
+	if (temperature < 0) {
+        weatherString = "Its " + Math.round(temperature) + " degrees... wear a heavy coat or dont go outside.";
+    } else if (temperature < 40) {
+        weatherString = "Its " + Math.round(temperature) + " degrees... wear a coat.";
+    } else if (temperature < 65) {
+        weatherString = "Its " + Math.round(temperature) + " degrees outside... wear a vest.";
+    } else if (temperature < 80) {
+        weatherString = "Its " + Math.round(temperature) + " degrees outside... vest optional.";
+    } else if (temperature < 100) {
+        weatherString = "Its " + Math.round(temperature) + " degrees outside... beautiful day, stay hydrated.";
+    } else {
+        weatherString = "Its " + Math.round(temperature) + " degrees... hydrate or stay indoors.";
+    }
+
+	}
+
+
 function setWeather() {
     (function(weather) {
         weather.getElementsByTagName("weather")[0].innerHTML = weatherString;
@@ -262,8 +287,14 @@ function getImageBrightness(imageSrc) {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
+	//if(#nameString = $("#nameInput").val() == null){
   document.getElementById("nameButton").addEventListener("click", changeName);
+	//}
 });
+document.addEventListener('DOMContentLoaded', function() {
+  document.getElementById("cancelName").addEventListener("click", cancelName);
+});
+
 
 $(function() {
     $('#name').on('dblclick', function() {
@@ -275,6 +306,21 @@ $(function() {
     });
    });
 
+var stage = true; 
+$(function() {
+    $('#weather').on('click', function() {	
+	if(stage == true){
+	weatherString = precip+"% Precipitation | " + summary;
+	    setWeather();
+	    stage = false;
+	}
+	else if (stage == false){
+		setWeatherString();
+		setWeather();
+		stage = true;
+		}
+	});
+   });
 
 //*****************************//
 setInterval(function() {
@@ -285,7 +331,7 @@ setInterval(function() {
     hours = currentdate.getHours();
     minutes = currentdate.getMinutes();
     currentdate = new Date();
-	//refresh time
+	//refresh the time
     setTheTime();
 }, 1000);
 /*
