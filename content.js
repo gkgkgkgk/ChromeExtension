@@ -8,7 +8,6 @@ chrome.runtime.onInstalled.addListener(function(details){
 });
 
 
-
 //*****************************//
 //Date and Time
 var currentdate = new Date();
@@ -131,8 +130,8 @@ function changeName(){
         });
 	setWelcomeMessage();
 	resetName();
-	$("#name").show(500);
-	$('#changeName').hide(500);
+	$("#name").show(150);
+	$('#changeName').hide(150);
 }
 
 //****//
@@ -268,17 +267,18 @@ document.addEventListener('DOMContentLoaded', function() {
 
 $(function() {
     $('#name').on('dblclick', function() {
-        $('#changeName').show("medium"); //show textbox
-        $(this).fadeOut(500);
-        welcomeMessage = "Would you like to change your name?";
+        $('#changeName').show(100); //show textbox
+        $(this).hide(100);
+
+        welcomeMessage = "Would you like to change your name? ";
         resetName();
     });
    });
-   
-   
-   
+
+
 //*****************************//
 setInterval(function() {
+
     //refresh the time variables
     hours = currentdate.getHours();
     year = currentdate.getFullYear();

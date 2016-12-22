@@ -1,57 +1,46 @@
-
 <!DOCTYPE html>
 <html lang="en">
-
-<body class="vignette">
-    <meta charset="UTF-8">
-    <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
-    <link href="CSS.css" rel="stylesheet">
-    
-    
-    <div class="header">
-        <h3 class="pull-right contrast" id="time"><time></h3>
-        <a href="https://www.google.com/calendar">
-        <h3 class="pull-left contrast">
+   <body class="vignette">
+      <meta charset="UTF-8">
+      <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
+      <link href="CSS.css" rel="stylesheet">
+	  
+	  <header>
+      <h3 class="contrast" id="time"><time></h3>
+      <a href="https://www.google.com/calendar" id = "date">
+         <h3 class="contrast">
             <date>
          </h3>
-         </a>
-    </div>
-    <div id = "middleContainer">
-    <h1 class="contrast" id="message">
-         <message>
-      </h1>
-      	<h1 class="contrast" id="name">
-         <name>
-      </h1>
-      <form class = "form-inline" id = "changeName">
-      <div class="input-group input-group-lg">
-      <input type="text" class="form-control" placeholder="Change to..." style ="width = 50%; background-color:rgba(0,0,0,0.5) !important; color: white;" id = "nameInput">
-      <span class="input-group-btn">
-        <button class="btn btn-secondary" type="button" id="nameButton">Go!</button>
-      </span>
-    </div>
-    </form>
-       </div>
-    <div style=" margin: 0;
-         position: absolute;
-         top: 95%;
-         left: 50%;
-         margin-right: -50%;
-         transform: translate(-50%, -50%)">
-        <h3 id="weather" class="contrast">
-            <weather>
-         </h3>
-        <a href="https://darksky.net/poweredby/" style=" margin: 0;
-            position: absolute;
-            top: 95%;
-            left: 50%;
-            margin-right: -50%;
-            transform: translate(-50%, -50%)">
-            Powered by DarkSky</a>
-    </div>
-    <script src="jquery.js"></script>
-    <script src="content.js"></script>
-	<script src="\jquery-ui-1.12.1.custom\jquery-ui.js"></script>
-</body>
+      </a>
+	  </header>
+	  <div  id = "container">
+	        <div id = "messageContainer">
 
+	  <div class="contrast" id="message">
+         <message>
+      </div>
+      <div class="contrast" id="name">
+         <name>
+      </div>
+      <form class = "form-inline" id = "changeName">
+         <div class="input-group input-group-lg">
+            <input type="text" class="form-control" placeholder="Change to..." style ="width = 50%; background-color:rgba(0,0,0,0.5) !important; color: white;" id = "nameInput">
+            <span class="input-group-btn">
+            <button class="btn btn-secondary" type="button" id="nameButton">Go!</button>
+         </div>
+      </form>
+	  </div>
+	  </div>
+	  <footer>
+      <h3 id="weather" class="contrast">
+         <weather>
+      </h3>
+      <a href="https://darksky.net/poweredby/">
+      Powered by DarkSky</a>
+	  </footer>
+      <script src="jquery.js"></script>
+      <script src="content.js"></script>
+      <script src="\jquery-ui-1.12.1.custom\jquery-ui.js"></script>
+	  
+   </body>
 </html>
