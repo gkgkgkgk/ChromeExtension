@@ -1,94 +1,83 @@
-html, body {
-  display: block;
-  text-align: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-      position: absolute;
-	height: 100%;
+html,
+body {
+    display: block;
+    text-align: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: absolute;
+    height: 100%;
     width: 100%;
+    overflow: hidden;
 }
-
-
 footer {
-	width: 100%;
-   height: 6em;  
-   position: absolute; 
-   bottom: 0px; 
-  /* border: 1px solid gray;*/
-
+    width: 100%;
+    height: 6em;
+    position: absolute;
+    bottom: 0px;
+    /* border: 1px solid gray;*/
 }
 header {
-	width: 100%;
-   height: 6em;  
-   position: absolute; 
-   top: 0em; 
-   /*border: 1px solid gray;*/
-
+    width: 100%;
+    height: 6em;
+    position: absolute;
+    top: 0em;
+    /*border: 1px solid gray;*/
 }
 #container {
-top: 6em; 
-bottom: 6em;
-position: absolute; 
-/*border: 1px solid red;*/
-width: 100%;
-	}
+    top: 6em;
+    bottom: 6em;
+    position: absolute;
+    /*border: 1px solid red;*/
+    
+    width: 100%;
+}
 .contrast {
     -webkit-font-smoothing: subpixel-antialiased;
     -moz-osx-font-smoothing: grayscale;
     -webkit-user-select: none;
     /* Chrome/Safari */
+    
     -moz-user-select: none;
-    /* Firefox */  
+    /* Firefox */
+    
     -ms-user-select: none;
     /* IE10+ */
     /* Rules below not implemented in browsers yet */
+    
     -o-user-select: none;
     user-select: none;
 }
-
-#messageContainer{
-	 position: absolute;
+#messageContainer {
+    position: absolute;
     top: 50%;
     left: 50%;
     transform: translateX(-50%) translateY(-50%);
 }
 #name {
-
     font-size: 5em;
     font-family: 'font1';
-
- 
 }
-
 #message {
     font-size: 5em;
     font-family: 'font1';
-
- }
- #time{
-	float: right;
-	padding:0em 5em 0em 0em; /*top,right,bottom,left*/
- }
-  #date{
-	float: left;
-	padding:0em 0em 0em 5em;
- }
- #weather{
-	 
- }
-	
-	
-	
-
-@font-face {
+}
+#time {
+    float: right;
+    padding: 0em 5em 0em 0em;
+    /*top,right,bottom,left*/
+}
+#date {
+    float: left;
+    padding: 0em 0em 0em 5em;
+}
+#weather {} @font-face {
     font-family: 'font1';
-	font-smooth: always;
-    /*a name to be used later*/   
+    font-smooth: always;
+    /*a name to be used later*/
+    
     src: url('fonts/Code Bold.otf');
     /*URL to font*/
 }
-
-
 .vignette {
     position: fixed;
     top: 0;
@@ -97,56 +86,75 @@ width: 100%;
     height: 100%;
     box-shadow: 0 0 200px rgba(0, 0, 0, 0.9) inset;
 }
-
-
-
-
-
 .form-control::-moz-placeholder {
-  color: grey;
+    color: grey;
 }
 .form-control:-ms-input-placeholder {
-  color: grey;
+    color: grey;
 }
 .form-control::-webkit-input-placeholder {
-  color: grey;
+    color: grey;
 }
-
-
 body {
-
-    -webkit-animation: fadein 2s; /* Safari, Chrome and Opera > 12.1 */
-       -moz-animation: fadein 2s; /* Firefox < 16 */
-        -ms-animation: fadein 2s; /* Internet Explorer */
-         -o-animation: fadein 2s; /* Opera < 12.1 */
-            animation: fadein 2s;
+    -webkit-animation: fadein 2s;
+    /* Safari, Chrome and Opera > 12.1 */
+    
+    -moz-animation: fadein 2s;
+    /* Firefox < 16 */
+    
+    -ms-animation: fadein 2s;
+    /* Internet Explorer */
+    
+    -o-animation: fadein 2s;
+    /* Opera < 12.1 */
+    
+    animation: fadein 2s;
 }
-
 @keyframes fadein {
-    from { opacity: 0; }
-    to   { opacity: 1; }
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
-
 /* Firefox < 16 */
+
 @-moz-keyframes fadein {
-    from { opacity: 0; }
-    to   { opacity: 1; }
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
-
 /* Safari, Chrome and Opera > 12.1 */
+
 @-webkit-keyframes fadein {
-    from { opacity: 0; }
-    to   { opacity: 1; }
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
-
 /* Internet Explorer */
-@-ms-keyframes fadein {
-    from { opacity: 0; }
-    to   { opacity: 1; }
-}
 
+@-ms-keyframes fadein {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
 /* Opera < 12.1 */
+
 @-o-keyframes fadein {
-    from { opacity: 0; }
-    to   { opacity: 1; }
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }

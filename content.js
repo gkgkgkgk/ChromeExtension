@@ -32,11 +32,11 @@ var nameString = "Click Here to Edit Name";
 //weather variables
 var weatherString = "weather";
 var url = "temp!"
-var DarkSkyKey = "10fa33c4630b46a9705797dd316a6bb6";
+var DarkSkyKey = "b7674cbd7503401d03af520d1222a904";
 var precip = 0;
 var summary = "";
 var temperature = 0;
-
+var humidity = 0;
 
 $('#changeName').hide();
 //find name of month from number
@@ -166,6 +166,8 @@ function setTheTime() {
         	}
         else if (hours > 12) {
             newHours -= 12;
+                    	status = "PM";
+
         } else {
             newHours = hours;
             status = "AM";
@@ -194,6 +196,8 @@ $.ajax({
 	summary = response.currently.summary;
 	precip = response.currently.precipProbability;
 	temperature = response.currently.temperature;
+	humidity = response.currently.humidity;
+
         setWeatherString();
         setWeather();
 });
@@ -310,7 +314,7 @@ var stage = true;
 $(function() {
     $('#weather').on('click', function() {	
 	if(stage == true){
-	weatherString = precip+"% Precipitation | " + summary;
+	weatherString = precip+"% Chance of Precipitation | " + summary + " | Humidity: "+Math.round(humidity*100)+"%";
 	    setWeather();
 	    stage = false;
 	}
