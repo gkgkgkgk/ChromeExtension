@@ -32,7 +32,7 @@ var nameString = "Click Here to Edit Name";
 //weather variables
 var weatherString = "weather";
 var url = "temp!"
-var DarkSkyKey = "b7674cbd7503401d03af520d1222a904";
+var DarkSkyKey = "35d9d87f04357e2e249f41bc52446707";
 var precip = 0;
 var summary = "";
 var temperature = 0;
@@ -326,6 +326,21 @@ $(function() {
 	});
    });
 
+   
+document.addEventListener('DOMContentLoaded', function() {
+  document.getElementById("openNav").addEventListener("click", openNav);
+});
+document.addEventListener('DOMContentLoaded', function() {
+  document.getElementById("closeNav").addEventListener("click", closeNav);
+});
+function openNav() {
+    document.getElementById("mySidenav").style.width = "20em";
+}
+
+/* Set the width of the side navigation to 0 */
+function closeNav() {
+    document.getElementById("mySidenav").style.width = "0";
+}
 //*****************************//
 setInterval(function() {
 

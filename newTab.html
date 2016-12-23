@@ -4,6 +4,7 @@
       <meta charset="UTF-8">
       <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
       <link href="CSS.css" rel="stylesheet">
+	  <link href="sideBar.css" rel="stylesheet">
 	  
 	  <header>
       <h3 class="contrast" id="time"><time></h3>
@@ -13,7 +14,9 @@
          </h3>
       </a>
 	  </header>
+	 
 	  <div  id = "container">
+	  
 	        <div id = "messageContainer">
 
 	  <div class="contrast" id="message">
@@ -31,17 +34,32 @@
          </div>
       </form>
 	  </div>
-	  </div>
+ 
+</div>
 	  <footer>
+	  <div id = "sideBar">
+	 <div id="mySidenav" class="sidenav">
+  <button class="closebtn" id = "closeNav" type = "button" style = "vertical-align:right">&times;</button>
+  <a>These</a>
+  <a>Should</a>
+  <a>be</a>
+  <a>bookmarks</a>
+</div>
+<!-- Use any element to open the sidenav -->
+<button type="button" id = "openNav" class="btn btn-primary" >Bookmarks</button>
+</div>
       <h3 id="weather" class="contrast">
          <weather>
       </h3>
       <a href="https://darksky.net/poweredby/">
       Powered by DarkSky</a>
 	  </footer>
-      <script src="jquery.js"></script>
-      <script src="content.js"></script>
-      <script src="/jquery-ui-1.12.1.custom/jquery-ui.js"></script>
+      
 	  
+
+	  <script src="jqueryScripts/jquery.js"></script>
+      <script src="content.js"></script>
+      <script src="jqueryScripts/jquery-ui.js"></script>
+	
    </body>
 </html>
