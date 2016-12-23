@@ -70,7 +70,8 @@ header {
     float: left;
     padding: 0em 0em 0em 5em;
 }
-#weather {} @font-face {
+
+@font-face {
     font-family: 'font1';
     font-smooth: always;
     /*a name to be used later*/

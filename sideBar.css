@@ -1,7 +1,20 @@
 #openNav{
 	position: absolute;
-	bottom: 0%;
+	bottom: 50%;
 	left: 0;
+	background-color: rgba(0,0,0,0); /* Black*/
+	width:0em;
+	visibility: visible;
+	color: white;
+	font-size: 2em;
+	transition: color 0.5s ease;
+}
+#openNav:hover {
+  color:red;
+  outline: none;
+}
+#openNav:focus {
+  outline: none;
 }
 .sidenav {
     width: 0; /* 0 width - change this with JavaScript */
@@ -18,31 +31,71 @@
 
 /* The navigation menu links */
 .sidenav a {
-    padding: 8px 8px 8px 32px;
+	vertical-align: center;
     text-decoration: none;
-    font-size: 25px;
-    color: red;
+    font-size: 1em;
+    color: white;
     display: block;
-    transition: 0.3s
+    transition: 0.3s;
+    font-family: font2;
 }
 
 /* When you mouse over the navigation links, change their color */
 .sidenav a:hover, .offcanvas a:focus{
-    color: #f1f1f1;
+    color: red;
 }
 
 /* Position and style the close button (top right corner) */
 .sidenav .closebtn {
-    	position: absolute;
+    position: absolute;
 	top: 0;
 	left: 0;
-    font-size: 2em;
-}
+    transition: color 0.25s ease;
+    color:black;
+    height:2em;
+    width:2em;
+    background-color: white;
+	border-radius: 0 !important;
+  	z-index:11;
+  	text-align: center;
+	vertical-align: middle;
+	line-height: 1em;
 
+}
+.sidenav .closebtn:hover {
+    color:red;
+}
+.sidenav .closebtn:focus {
+  outline: none;
+}
+#bookmark{
+	position: absolute;
+	top: 0;
+	left: 0;
+    color:white;
+    height:2em;
+    width:100%;
+    background-color: white;
+    color: black;
+    text-align: center;
+	vertical-align: middle;
+	line-height: 2em;
+	  z-index:10;
+	  font-family: font2;
+	}
 
 
 /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
 @media screen and (max-height: 450px) {
     .sidenav {padding-top: 15px;}
-    .sidenav a {font-size: 18px;}
+    .sidenav a {font-size: 2em;}
+}
+
+@font-face {
+    font-family: 'font2';
+    font-smooth: always;
+    /*a name to be used later*/
+    
+    src: url('fonts/monofonto.ttf');
+    /*URL to font*/
 }

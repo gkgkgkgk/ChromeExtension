@@ -7,7 +7,25 @@ chrome.runtime.onInstalled.addListener(function(details){
     }
 });
 
+function process_bookmark(bookmarks) {
 
+    for (var i =0; i < bookmarks.length; i++) {
+        var bookmark = bookmarks[i];
+        if (bookmark.url) {
+            console.log("bookmark: "+ bookmark.title + " ~  " + bookmark.url);
+            $(".sidenav").append('<a href='+bookmark.url+'>'+bookmark.title+'</a>');
+
+        }
+
+        if (bookmark.children) {
+            process_bookmark(bookmark.children);
+        }
+    }
+}
+
+
+  console.log("listing bookmarks: " );
+  chrome.bookmarks.getTree( process_bookmark );
 //*****************************//
 //Date and Time
 var currentdate = new Date();
@@ -32,7 +50,7 @@ var nameString = "Click Here to Edit Name";
 //weather variables
 var weatherString = "weather";
 var url = "temp!"
-var DarkSkyKey = "35d9d87f04357e2e249f41bc52446707";
+var DarkSkyKey = "5a1da04431fa836d13a093e0ee9a692b";
 var precip = 0;
 var summary = "";
 var temperature = 0;
@@ -334,16 +352,19 @@ document.addEventListener('DOMContentLoaded', function() {
   document.getElementById("closeNav").addEventListener("click", closeNav);
 });
 function openNav() {
-    document.getElementById("mySidenav").style.width = "20em";
+    document.getElementById("mySidenav").style.width = "15em";
+    	document.getElementById("openNav").style.visibility = "hidden";
+
 }
 
 /* Set the width of the side navigation to 0 */
 function closeNav() {
     document.getElementById("mySidenav").style.width = "0";
+    	document.getElementById("openNav").style.visibility = "visible";
+
 }
 //*****************************//
 setInterval(function() {
-
     //refresh the time variables
     hours = currentdate.getHours();
     year = currentdate.getFullYear();

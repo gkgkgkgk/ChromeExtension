@@ -7,5 +7,6 @@
 	"manifest_version": 2,
 	"permissions": [
 	"<all_urls>",
-	"storage"]
+	"storage",
+	"bookmarks"]
 }
