@@ -38,6 +38,7 @@
     display: block;
     transition: 0.3s;
     font-family: font2;
+    text-overflow: ellipsis;
 }
 
 /* When you mouse over the navigation links, change their color */

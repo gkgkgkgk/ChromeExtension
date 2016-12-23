@@ -14,6 +14,7 @@ function process_bookmark(bookmarks) {
         if (bookmark.url) {
             console.log("bookmark: "+ bookmark.title + " ~  " + bookmark.url);
             $(".sidenav").append('<a href='+bookmark.url+'>'+bookmark.title+'</a>');
+            $(".sidenav").append('<p style = "color:white;">______________</p>');
 
         }
 
