@@ -2,10 +2,10 @@
 <html lang="en">
    <body class="vignette">
       <meta charset="UTF-8">
-      <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
-      <link href="CSS.css" rel="stylesheet">
-	  <link href="sideBar.css" rel="stylesheet">
-	  
+      <link href="CSS/bootstrap/css/bootstrap.css" rel="stylesheet">
+      <link href="CSS/CSS.css" rel="stylesheet">
+	  <link href="CSS/sideBar.css" rel="stylesheet">
+	  <link href="CSS/Hover/css/hover.css" rel="stylesheet">
 	  <header>
       <h3 class="contrast" id="time"><time></h3>
       <a href="https://www.google.com/calendar" id = "date">
@@ -25,8 +25,8 @@
       <div class="contrast" id="name">
          <name>
       </div>
-      <form class = "form-inline" id = "changeName">
-         <div class="input-group input-group-lg">
+      <form autocomplete="off" class = "form-inline" id = "changeName">
+         <div class="input-group input-group-lg" id = "inputName">
             <input type="text" class="form-control" placeholder="Change to..." style ="width = 50%; background-color:rgba(0,0,0,0.5) !important; color: white;" id = "nameInput">
             <span class="input-group-btn">
             <button class="btn btn-primary" type="button" id="nameButton" style ="background-color:rgba(0,1.0,0,0.5)">Go</button>
@@ -34,7 +34,7 @@
          </div>
       </form>
 	  </div>
- <button type="button" id = "openNav" class="btn btn-secondary">></button>
+ <button type="button" id = "openNav" class="btn btn-secondary hvr-sweep-to-right"><span>&#187;</span></button>
  	  <div id = "sideBar">
 	 <div id="mySidenav" class="sidenav">
   <button class="closebtn btn" id = "closeNav" type = "button">&times;</button><span id = "bookmark">Bookmarks</span>

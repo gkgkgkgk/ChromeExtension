@@ -10,7 +10,6 @@
 	transition: color 0.5s ease;
 }
 #openNav:hover {
-  color:red;
   outline: none;
 }
 #openNav:focus {
@@ -61,7 +60,7 @@
   	text-align: center;
 	vertical-align: middle;
 	line-height: 1em;
-
+	font-family: font2;
 }
 .sidenav .closebtn:hover {
     color:red;

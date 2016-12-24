@@ -13,7 +13,8 @@ function process_bookmark(bookmarks) {
         var bookmark = bookmarks[i];
         if (bookmark.url) {
             console.log("bookmark: "+ bookmark.title + " ~  " + bookmark.url);
-            $(".sidenav").append('<a href='+bookmark.url+'>'+bookmark.title+'</a>');
+			var newName = bookmark.title.replace(/\s+/g, '');
+            $(".sidenav").append("<a href='"+bookmark.url+"'>"+newName+"</a>");
             $(".sidenav").append('<p style = "color:white;">______________</p>');
 
         }
@@ -51,7 +52,7 @@ var nameString = "Click Here to Edit Name";
 //weather variables
 var weatherString = "weather";
 var url = "temp!"
-var DarkSkyKey = "5a1da04431fa836d13a093e0ee9a692b";
+var DarkSkyKey = "60d35e5d46a892216aff7b003d4c424b";
 var precip = 0;
 var summary = "";
 var temperature = 0;
@@ -323,7 +324,8 @@ $(function() {
     $('#name').on('dblclick', function() {
         $('#changeName').show(100); //show textbox
         $(this).hide(100);
-
+		$('#inputName').focus();
+		//$('#changeName').select();
         welcomeMessage = "Would you like to change your name? ";
         resetName();
     });
