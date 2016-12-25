@@ -65,18 +65,24 @@ header {
     float: right;
     padding: 0em 5em 0em 0em;
     /*top,right,bottom,left*/
+	    font-family: 'font1';
+
 }
 #date {
     float: left;
     padding: 0em 0em 0em 5em;
-}
+	    font-family: 'font1';
 
+}
+#weather{
+	    font-family: 'font1';
+}
 @font-face {
-    font-family: 'font1';
+    font-family: font1;
     font-smooth: always;
     /*a name to be used later*/
     
-    src: url('fonts/Code Bold.otf');
+    src: url('fonts/biko/Biko_Regular.otf');
     /*URL to font*/
 }
 .vignette {

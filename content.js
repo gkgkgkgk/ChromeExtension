@@ -12,13 +12,12 @@ function process_bookmark(bookmarks) {
     for (var i =0; i < bookmarks.length; i++) {
         var bookmark = bookmarks[i];
         if (bookmark.url) {
-            console.log("bookmark: "+ bookmark.title + " ~  " + bookmark.url);
+            //console.log("bookmark: "+ bookmark.title + " ~  " + bookmark.url);
 			var newName = bookmark.title.replace(/\s+/g, '');
             $(".sidenav").append("<a href='"+bookmark.url+"'>"+newName+"</a>");
             $(".sidenav").append('<p style = "color:white;">______________</p>');
 
         }
-
         if (bookmark.children) {
             process_bookmark(bookmark.children);
         }
@@ -26,7 +25,7 @@ function process_bookmark(bookmarks) {
 }
 
 
-  console.log("listing bookmarks: " );
+  //console.log("listing bookmarks: " );
   chrome.bookmarks.getTree( process_bookmark );
 //*****************************//
 //Date and Time
@@ -42,7 +41,7 @@ var status = "AM";
 var welcomeMessage = "";
 var brightness = 0;
 chrome.storage.sync.get("nameSaved", function(name) {
-console.log(name.nameSaved);
+//console.log(name.nameSaved);
 nameString = name.nameSaved;
 setName();
 });
@@ -210,9 +209,9 @@ $.ajax({
     url: "https://api.darksky.net/forecast/"+DarkSkyKey+"/40.893247,-74.011654",
     method: "GET"
 }).done(function(response) {
-    console.log(response.currently.temperature);
-    console.log(response.currently.summary);
-    console.log(response.currently.precipProbability);
+    //console.log(response.currently.temperature);
+    //console.log(response.currently.summary);
+    //console.log(response.currently.precipProbability);
 	summary = response.currently.summary;
 	precip = response.currently.precipProbability;
 	temperature = response.currently.temperature;
@@ -246,17 +245,37 @@ function setWeather() {
     })(this.document);
 }
 //***********END OF WEATHER API AND FUNCTION***********//
-
+var vibrantColor;
 //bing image of the day!!!!!!
 $.ajax({
     url: "http://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1",
     method: "GET"
 }).done(function(response) {
     url = "http://bing.com" + response.images[0].url;
-    console.log(url);
+    //console.log(url);
     $("body").css("background-image", "url(" + url + ")");
     getImageBrightness(url);
+/*	var img = document.createElement('img');
+	img.setAttribute('src', url)
 
+img.addEventListener('load', function() {
+    var vibrant = new Vibrant(img);
+    var swatches = vibrant.swatches()
+    for (var swatch in swatches)
+        if (swatches.hasOwnProperty(swatch) && swatches[swatch])
+            //console.log(swatch, swatches[swatch].getHex())
+			//console.log(swatches.Vibrant.rgb);
+			//$(".sidenav a").css("color", "rgb(" + swatches.Vibrant.rgb[0] + "," + swatches.Vibrant.rgb[1] +"," + swatches.Vibrant.rgb[2] + ")");
+		
+     * Results into:
+     * Vibrant #7a4426
+     * Muted #7b9eae
+     * DarkVibrant #348945
+     * DarkMuted #141414
+     * LightVibrant #f3ccb4
+    
+});
+*/
 });
 
 //****//
@@ -291,7 +310,7 @@ function getImageBrightness(imageSrc) {
         }
 
         brightness = Math.floor(colorSum / (this.width * this.height));
-        console.log(brightness);
+       //console.log(brightness);
 
         if (brightness < 200) {
             $(".contrast").css("-webkit-text-fill-color", "white");
