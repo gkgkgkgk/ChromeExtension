@@ -385,6 +385,28 @@ function closeNav() {
     	document.getElementById("openNav").style.visibility = "visible";
 
 }
+
+
+
+
+document.addEventListener('DOMContentLoaded', function() {
+  document.getElementById("openApp").addEventListener("click", openApp);
+});
+document.addEventListener('DOMContentLoaded', function() {
+  document.getElementById("closeApp").addEventListener("click", closeApp);
+});
+function openApp() {
+    document.getElementById("myAppWindow").style.width = "15em";
+    	document.getElementById("openApp").style.visibility = "hidden";
+
+}
+
+/* Set the width of the side navigation to 0 */
+function closeApp() {
+    document.getElementById("myAppWindow").style.width = "0";
+    	document.getElementById("openApp").style.visibility = "visible";
+
+}
 //*****************************//
 setInterval(function() {
     //refresh the time variables

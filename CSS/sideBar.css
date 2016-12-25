@@ -51,7 +51,7 @@
     display: block;
     transition: 0.3s;
     font-family: font2;
-    text-overflow: ellipsis;
+    text-overflow:ellipsis;
 	font-family:font2;
 }
 
@@ -114,3 +114,118 @@
     src: url('fonts/Comfortaa-Regular.ttf');
     /*URL to font*/
 }
+
+
+
+
+
+
+
+
+#openApp{
+	position: absolute;
+	bottom: 50%;
+	right:0;
+	background-color: rgba(0,0,0,0); /* Black*/
+	width:0em;
+	visibility: visible;
+	color: white;
+	transition: color 0.5s ease;
+	font-size: 2em;
+}
+#openNav:hover {
+  outline: none;
+}
+#openNav:focus {
+  outline: none;
+}
+.appWindow {
+    border-top-left-radius: 1em;
+	border-bottom-left-radius: 1em;
+    width: 0; /* 0 width - change this with JavaScript */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Stay on top */
+    top: 6em;
+	bottom: 6em;
+    right: 0;
+    background-color: rgba(0,0,0,0.6); /* Black*/
+    overflow-x: hidden; /* Disable horizontal scroll */
+    padding-top: 60px; /* Place content 60px from the top */
+    transition: 0.175s; /* 0.5 second transition effect to slide in the sidenav */
+	-webkit-user-select: none;
+    /* Chrome/Safari */
+    
+    -moz-user-select: none;
+    /* Firefox */
+    
+    -ms-user-select: none;
+    /* IE10+ */
+    /* Rules below not implemented in browsers yet */
+    
+    -o-user-select: none;
+    user-select: none;
+	}
+
+/* The navigation menu links */
+.appWindow a {
+	color : #599fff;
+	vertical-align: center;
+    text-decoration: none;
+    font-size: 1em;
+    display: block;
+    transition: 0.3s;
+    font-family: font2;
+    text-overflow:ellipsis;
+}
+
+/* When you mouse over the navigation links, change their color */
+.appWindow a:hover, .offcanvas a:focus{
+    color: white;
+}
+
+/* Position and style the close button (top right corner) */
+.appWindow .closeApp {
+    position: absolute;
+	top: 0;
+	right: 0;
+    transition: color 0.25s ease;
+    color:black;
+    height:2em;
+    width:2em;
+    background-color: white;
+	border-radius: 0 !important;
+  	z-index:11;
+  	text-align: center;
+	vertical-align: middle;
+	line-height: 1em;
+	font-family: font2;
+}
+.appWindow .closeApp:hover {
+    color:red;
+}
+.appWindow .closeApp:focus {
+  outline: none;
+}
+#apps{
+	position: absolute;
+	top: 0;
+	left: 0;
+    color:white;
+    height:2em;
+    width:100%;
+    background-color: white;
+    color: black;
+    text-align: center;
+	vertical-align: middle;
+	line-height: 2em;
+	z-index:10;
+	font-family: font2;
+	}
+
+
+/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+@media screen and (max-height: 450px) {
+    .appWindow {padding-top: 1em;}
+    .appWindow a {font-size: 2em;}
+}
+ 
