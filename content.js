@@ -51,7 +51,7 @@ var nameString = "Click Here to Edit Name";
 //weather variables
 var weatherString = "weather";
 var url = "temp!"
-var DarkSkyKey = "60d35e5d46a892216aff7b003d4c424b";
+var DarkSkyKey = "f05fd2a0adc953ce4eb46e226c58aaa4";
 var precip = 0;
 var summary = "";
 var temperature = 0;
@@ -310,7 +310,7 @@ function getImageBrightness(imageSrc) {
         }
 
         brightness = Math.floor(colorSum / (this.width * this.height));
-       //console.log(brightness);
+       console.log(brightness);
 
         if (brightness < 200) {
             $(".contrast").css("-webkit-text-fill-color", "white");
