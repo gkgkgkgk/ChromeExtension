@@ -3,7 +3,8 @@
 	bottom: 50%;
 	left: 0;
 	background-color: rgba(0,0,0,0); /* Black*/
-	width:0em;
+		width: 2em;
+	text-align: center;
 	visibility: visible;
 	color: white;
 	font-size: 2em;
@@ -126,12 +127,14 @@
 	position: absolute;
 	bottom: 50%;
 	right:0;
-	background-color: rgba(0,0,0,0); /* Black*/
-	width:0em;
+	background-color: rgba(0,0,0,0); 
 	visibility: visible;
 	color: white;
 	transition: color 0.5s ease;
 	font-size: 2em;
+	width: 2em;
+	text-align: center;
+
 }
 #openNav:hover {
   outline: none;
@@ -209,7 +212,7 @@
 #apps{
 	position: absolute;
 	top: 0;
-	left: 0;
+	right: 0;
     color:white;
     height:2em;
     width:100%;
