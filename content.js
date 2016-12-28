@@ -25,7 +25,7 @@ function process_bookmark(bookmarks) {
 }
 
 
-  //console.log("listing bookmarks: " );
+//console.log("listing bookmarks: " );
   chrome.bookmarks.getTree( process_bookmark );
 //*****************************//
 //Date and Time
@@ -51,7 +51,7 @@ var nameString = "Click Here to Edit Name";
 //weather variables
 var weatherString = "weather";
 var url = "temp!"
-var DarkSkyKey = "f05fd2a0adc953ce4eb46e226c58aaa4";
+var DarkSkyKey = "";
 var precip = 0;
 var summary = "";
 var temperature = 0;

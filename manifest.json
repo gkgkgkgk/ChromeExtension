@@ -1,7 +1,7 @@
 {
 	"name": "New Tab ",
 	"description": "new tab page",
-	"version": "1.0",
+	"version": "2.0",
 	"incognito": "split",
 	"chrome_url_overrides": {"newtab": "newtab.html"},
 	"manifest_version": 2,
