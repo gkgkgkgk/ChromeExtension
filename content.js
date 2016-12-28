@@ -24,6 +24,9 @@ function process_bookmark(bookmarks) {
     }
 }
 
+ document.getElementById("myAppWindow").style.width = "0";
+    	document.getElementById("openApp").style.visibility = "visible";
+
 
 //console.log("listing bookmarks: " );
   chrome.bookmarks.getTree( process_bookmark );
@@ -366,6 +369,36 @@ $(function() {
 	});
    });
 
+  
+
+$(document).keydown(function(e) {
+    if(e.which == 37){
+    		if($('#mySidenav').css("width") == "0px"){
+        	openNav();
+        	//console.log("Left");
+        	}
+       		else{
+       		closeNav();
+       		//console.log("Left Off");
+       		}
+
+    	}
+       if(e.which == 39){
+    		if($('#myAppWindow').css("width") == "0px"){
+        	openApp();
+        	//console.log("right");
+        	}
+       		else{
+       		closeApp();
+       		//console.log("right Off");
+       		}
+
+    	}
+    
+    //e.preventDefault(); // prevent the default action (scroll / move caret)
+});
+  
+  
    
 document.addEventListener('DOMContentLoaded', function() {
   document.getElementById("openNav").addEventListener("click", openNav);
@@ -373,6 +406,7 @@ document.addEventListener('DOMContentLoaded', function() {
 document.addEventListener('DOMContentLoaded', function() {
   document.getElementById("closeNav").addEventListener("click", closeNav);
 });
+
 function openNav() {
     document.getElementById("mySidenav").style.width = "15em";
     	document.getElementById("openNav").style.visibility = "hidden";
@@ -409,6 +443,7 @@ function closeApp() {
 }
 //*****************************//
 setInterval(function() {
+	
     //refresh the time variables
     hours = currentdate.getHours();
     year = currentdate.getFullYear();
