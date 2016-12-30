@@ -50,17 +50,23 @@ setName();
 });
 
 var nameString = "Click Here to Edit Name";
-
+var DarkSkyKey = "9586c77dc682ad17f93495cd931c700f";
 //weather variables
+chrome.storage.sync.get("apiKey", function(key) {
+//console.log(name.nameSaved);
+DarkSkyKey = key.apiKey;
+callWeather();
+});
 var weatherString = "weather";
 var url = "temp!"
-var DarkSkyKey = "";
 var precip = 0;
 var summary = "";
 var temperature = 0;
 var humidity = 0;
 
 $('#changeName').hide();
+$('#changeKey').hide();
+
 //find name of month from number
 switch (month) {
     case 0:
@@ -208,6 +214,13 @@ function setTheTime() {
 
 //***********WEATHER API AND FUNCTION***********//
 //
+function callWeather(){
+	if(DarkSkyKey == null){
+		console.log("null");
+		weatherString = "Double Click to Assign a Key! (Then Refresh)";
+		setWeather();
+	}
+	else{
 $.ajax({
     url: "https://api.darksky.net/forecast/"+DarkSkyKey+"/40.893247,-74.011654",
     method: "GET"
@@ -223,6 +236,8 @@ $.ajax({
         setWeatherString();
         setWeather();
 });
+	}
+}
 //****//
 function setWeatherString(){
 	if (temperature < 0) {
@@ -247,6 +262,23 @@ function setWeather() {
         weather.getElementsByTagName("weather")[0].innerHTML = weatherString;
     })(this.document);
 }
+
+function setWeatherKey(){
+	DarkSkyApi = $("#keyInput").val();
+	 chrome.storage.sync.set({'apiKey': DarkSkyApi}, function() {
+
+        });
+	$("#weather").show(150);
+	$('#changeKey').hide(150);
+	callWeather();
+	}
+function cancelWeatherKey(){
+	callWeather();
+	$("#weather").show(150);
+	$('#changeKey').hide(150);
+
+
+	}
 //***********END OF WEATHER API AND FUNCTION***********//
 var vibrantColor;
 //bing image of the day!!!!!!
@@ -368,8 +400,23 @@ $(function() {
 		}
 	});
    });
-
+$(function() {
+    $('#weather').on('dblclick', function() {
+        $('#changeKey').show(100); //show textbox
+        $(this).hide(100);
+		$('#inputKey').focus();
+		//$('#changeName').select();
+    });
+   });
+ document.addEventListener('DOMContentLoaded', function() {
+	//if(#nameString = $("#nameInput").val() == null){
+  document.getElementById("enterKey").addEventListener("click", setWeatherKey);
   
+	//}
+});
+document.addEventListener('DOMContentLoaded', function() {
+  document.getElementById("cancelKey").addEventListener("click", cancelWeatherKey);
+}); 
 
 $(document).keydown(function(e) {
     if(e.which == 37){
