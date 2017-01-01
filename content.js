@@ -185,6 +185,7 @@ function setTheDate() {
 }
 //****//
 function setTheTime() {
+	console.log(hours);
     (function(c) {
         var newHours = hours;
         var zero = "";
@@ -192,11 +193,16 @@ function setTheTime() {
         	status = "PM";
         	newHours = hours;
         	}
+			else if (hours == 0){
+				newHours = 12;
+				status = "AM";
+			}
         else if (hours > 12) {
             newHours -= 12;
                     	status = "PM";
 
-        } else {
+        }
+		else {
             newHours = hours;
             status = "AM";
         }
