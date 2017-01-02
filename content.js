@@ -185,7 +185,6 @@ function setTheDate() {
 }
 //****//
 function setTheTime() {
-	console.log(hours);
     (function(c) {
         var newHours = hours;
         var zero = "";
