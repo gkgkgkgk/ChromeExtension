@@ -54,6 +54,8 @@ var DarkSkyKey = "9586c77dc682ad17f93495cd931c700f";
 var lat;
 var long;
 //weather variables
+
+
 chrome.storage.sync.get("apiKey", function(key) {
 //console.log(name.nameSaved);
 DarkSkyKey = key.apiKey;
@@ -187,10 +189,7 @@ function setTheDate() {
 }
 //****//
 function setTheTime() {
-<<<<<<< HEAD
 	//console.log(hours);
-=======
->>>>>>> origin/master
     (function(c) {
         var newHours = hours;
         var zero = "";
@@ -273,8 +272,18 @@ $.ajax({
         }
     },
     success: function(response) {
-
+		//console.log(summary);
         summary = response.currently.summary;
+        if(summary == "Snow"){
+			snow(250);
+		}
+		else if(summary == "light-snow"){
+			snow(25);
+			}
+		else if(summary == "rain"){
+			rain();
+		}
+
         precip = response.currently.precipProbability;
         temperature = response.currently.temperature;
         humidity = response.currently.humidity;
@@ -579,6 +588,160 @@ setInterval(function() {
 	//refresh the time
     setTheTime();
 }, 1000);
+//***********************//
+
+
+function snow(amount){
+	console.log("snow");
+	var canvas = document.getElementById("canvas");
+	var ctx = canvas.getContext("2d");
+	
+	//canvas dimensions
+	var W = window.innerWidth;
+	var H = window.innerHeight;
+	canvas.width = W;
+	canvas.height = H;
+	
+	//snowflake particles
+	var mp = amount; //max particles
+	var particles = [];
+	for(var i = 0; i < mp; i++)
+	{
+		particles.push({
+			x: Math.random()*W, //x-coordinate
+			y: Math.random()*H, //y-coordinate
+			r: Math.random()*4+1, //radius
+			d: Math.random()*mp //density
+		})
+	}
+	
+	//Lets draw the flakes
+	function draw()
+	{
+		ctx.clearRect(0, 0, W, H);
+		
+		ctx.fillStyle = "rgba(255, 255, 255, 0.8)";
+		ctx.beginPath();
+		for(var i = 0; i < mp; i++)
+		{
+			var p = particles[i];
+			ctx.moveTo(p.x, p.y);
+			ctx.arc(p.x, p.y, p.r, 0, Math.PI*2, true);
+		}
+		ctx.fill();
+		update();
+	}
+	
+	//Function to move the snowflakes
+	//angle will be an ongoing incremental flag. Sin and Cos functions will be applied to it to create vertical and horizontal movements of the flakes
+	var angle = 0;
+	function update()
+	{
+		angle += 0.01;
+		for(var i = 0; i < mp; i++)
+		{
+			var p = particles[i];
+			//Updating X and Y coordinates
+			//We will add 1 to the cos function to prevent negative values which will lead flakes to move upwards
+			//Every particle has its own density which can be used to make the downward movement different for each flake
+			//Lets make it more random by adding in the radius
+			p.y += Math.cos(angle+p.d) + 1 + p.r/2;
+			p.x += Math.sin(angle) * 2;
+			
+			//Sending flakes back from the top when it exits
+			//Lets make it a bit more organic and let flakes enter from the left and right also.
+			if(p.x > W+5 || p.x < -5 || p.y > H)
+			{
+				if(i%3 > 0) //66.67% of the flakes
+				{
+					particles[i] = {x: Math.random()*W, y: -10, r: p.r, d: p.d};
+				}
+				else
+				{
+					//If the flake is exitting from the right
+					if(Math.sin(angle) > 0)
+					{
+						//Enter from the left
+						particles[i] = {x: -5, y: Math.random()*H, r: p.r, d: p.d};
+					}
+					else
+					{
+						//Enter from the right
+						particles[i] = {x: W+5, y: Math.random()*H, r: p.r, d: p.d};
+					}
+				}
+			}
+		}
+	}
+	
+	//animation loop
+	setInterval(draw, 33);
+}
+
+//}
+
+
+function rain(){
+	console.log("rain");
+  var canvas = $('#canvas')[0];
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  
+  if(canvas.getContext) {
+    var ctx = canvas.getContext('2d');
+    var w = canvas.width;
+    var h = canvas.height;
+    ctx.strokeStyle = 'rgba(174,194,224,0.5)';
+    ctx.lineWidth = 1;
+    ctx.lineCap = 'round';
+    
+    
+    var init = [];
+    var maxParts = 1000;
+    for(var a = 0; a < maxParts; a++) {
+      init.push({
+        x: Math.random() * w,
+        y: Math.random() * h,
+        l: Math.random() * 1,
+        xs: -4 + Math.random() * 4 + 2,
+        ys: Math.random() * 10 + 10
+      })
+    }
+    
+    var particles = [];
+    for(var b = 0; b < maxParts; b++) {
+      particles[b] = init[b];
+    }
+    
+    function draw() {
+      ctx.clearRect(0, 0, w, h);
+      for(var c = 0; c < particles.length; c++) {
+        var p = particles[c];
+        ctx.beginPath();
+        ctx.moveTo(p.x, p.y);
+        ctx.lineTo(p.x + p.l * p.xs, p.y + p.l * p.ys);
+        ctx.stroke();
+      }
+      move();
+    }
+    
+    function move() {
+      for(var b = 0; b < particles.length; b++) {
+        var p = particles[b];
+        p.x += p.xs;
+        p.y += p.ys;
+        if(p.x > w || p.y > h) {
+          p.x = Math.random() * w;
+          p.y = -20;
+        }
+      }
+    }
+    
+    setInterval(draw, 30);
+    
+  }
+}
+
 /*
         _         _         _         _    
        | |       | |       | |       | |   
