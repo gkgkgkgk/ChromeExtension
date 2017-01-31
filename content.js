@@ -187,7 +187,10 @@ function setTheDate() {
 }
 //****//
 function setTheTime() {
+<<<<<<< HEAD
 	//console.log(hours);
+=======
+>>>>>>> origin/master
     (function(c) {
         var newHours = hours;
         var zero = "";
