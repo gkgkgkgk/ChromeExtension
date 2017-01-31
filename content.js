@@ -51,11 +51,13 @@ setName();
 
 var nameString = "Click Here to Edit Name";
 var DarkSkyKey = "9586c77dc682ad17f93495cd931c700f";
+var lat;
+var long;
 //weather variables
 chrome.storage.sync.get("apiKey", function(key) {
 //console.log(name.nameSaved);
 DarkSkyKey = key.apiKey;
-callWeather();
+//callWeather();
 });
 var weatherString = "weather";
 var url = "temp!"
@@ -185,7 +187,7 @@ function setTheDate() {
 }
 //****//
 function setTheTime() {
-	console.log(hours);
+	//console.log(hours);
     (function(c) {
         var newHours = hours;
         var zero = "";
@@ -218,31 +220,68 @@ function setTheTime() {
     })(this.document);
 }
 
+navigator.geolocation.getCurrentPosition(successFunction, errorFunction);
+
+function successFunction(position) {
+    lat = position.coords.latitude;
+    long = position.coords.longitude;
+    console.log("lat:" + lat + " long:" + long);
+    callWeather();
+}
+
+function errorFunction(position) {
+    console.log('Error!');
+}
+
+
+
 //***********WEATHER API AND FUNCTION***********//
-//
-function callWeather(){
-	if(DarkSkyKey == null){
-		console.log("null");
-		weatherString = "Double Click to Assign a Key! (Then Refresh)";
+//added some security with adding the API key!
+function callWeather() {
+	if(DarkSkyKey == null || DarkSkyKey.length< 5){
+		//console.log("null");
+		weatherString = "Right Click to Assign a Key! (Press Go then Refresh)";
 		setWeather();
 	}
-	else{
+	else {
 $.ajax({
-    url: "https://api.darksky.net/forecast/"+DarkSkyKey+"/40.893247,-74.011654",
-    method: "GET"
-}).done(function(response) {
-    //console.log(response.currently.temperature);
-    //console.log(response.currently.summary);
-    //console.log(response.currently.precipProbability);
-	summary = response.currently.summary;
-	precip = response.currently.precipProbability;
-	temperature = response.currently.temperature;
-	humidity = response.currently.humidity;
+    url: "https://api.darksky.net/forecast/"+DarkSkyKey+"/"+lat+","+long,
+    method: "GET",
+    error: function (XMLHttpRequest, textStatus, errorThrown) {
+        if (XMLHttpRequest.readyState == 4) {
+            console.log("HTTP Error");
+            DarkSkyKey = "null";
+            weatherString = "Invalid Key. Right click to change. (Press Go then Refresh)";
+            setWeather();
+        }
+        else if (XMLHttpRequest.readyState == 0) {
+            console.log("Network Error");
+            DarkSkyKey = "null";
+            weatherString = "Invalid Key. Right click to change. (Press Go then Refresh)";
+            setWeather();
+
+        }
+        else {
+            console.log("wat");
+            DarkSkyKey = "null";
+            weatherString = "Invalid Key. Right click to change. (Press Go then Refresh)";
+            setWeather();
+
+        }
+    },
+    success: function(response) {
+
+        summary = response.currently.summary;
+        precip = response.currently.precipProbability;
+        temperature = response.currently.temperature;
+        humidity = response.currently.humidity;
 
         setWeatherString();
         setWeather();
-});
+    }
+})
 	}
+
 }
 //****//
 function setWeatherString(){
@@ -276,10 +315,14 @@ function setWeatherKey(){
         });
 	$("#weather").show(150);
 	$('#changeKey').hide(150);
-	callWeather();
-	}
+	//callWeather();
+	setWeatherString();
+	setWeather();
+}
 function cancelWeatherKey(){
-	callWeather();
+    setWeatherString();
+    setWeather();
+    //callWeather();
 	$("#weather").show(150);
 	$('#changeKey').hide(150);
 
@@ -290,33 +333,45 @@ var vibrantColor;
 //bing image of the day!!!!!!
 $.ajax({
     url: "http://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1",
-    method: "GET"
-}).done(function(response) {
-    url = "http://bing.com" + response.images[0].url;
-    //console.log(url);
-    $("body").css("background-image", "url(" + url + ")");
-    getImageBrightness(url);
-/*	var img = document.createElement('img');
-	img.setAttribute('src', url)
-
-img.addEventListener('load', function() {
-    var vibrant = new Vibrant(img);
-    var swatches = vibrant.swatches()
-    for (var swatch in swatches)
-        if (swatches.hasOwnProperty(swatch) && swatches[swatch])
-            //console.log(swatch, swatches[swatch].getHex())
-			//console.log(swatches.Vibrant.rgb);
-			//$(".sidenav a").css("color", "rgb(" + swatches.Vibrant.rgb[0] + "," + swatches.Vibrant.rgb[1] +"," + swatches.Vibrant.rgb[2] + ")");
-		
-     * Results into:
-     * Vibrant #7a4426
-     * Muted #7b9eae
-     * DarkVibrant #348945
-     * DarkMuted #141414
-     * LightVibrant #f3ccb4
-    
-});
-*/
+    method: "GET",
+    success: function (response) {
+        url = "http://bing.com" + response.images[0].url;
+        //console.log(url);
+        $("body").css("background-image", "url(" + url + ")");
+        getImageBrightness(url);
+        /*	var img = document.createElement('img');
+            img.setAttribute('src', url)
+        
+        img.addEventListener('load', function() {
+            var vibrant = new Vibrant(img);
+            var swatches = vibrant.swatches()
+            for (var swatch in swatches)
+                if (swatches.hasOwnProperty(swatch) && swatches[swatch])
+                    //console.log(swatch, swatches[swatch].getHex())
+                    //console.log(swatches.Vibrant.rgb);
+                    //$(".sidenav a").css("color", "rgb(" + swatches.Vibrant.rgb[0] + "," + swatches.Vibrant.rgb[1] +"," + swatches.Vibrant.rgb[2] + ")");
+                
+             * Results into:
+             * Vibrant #7a4426
+             * Muted #7b9eae
+             * DarkVibrant #348945
+             * DarkMuted #141414
+             * LightVibrant #f3ccb4
+            
+        });
+        */
+    },
+    error: function (XMLHttpRequest, textStatus, errorThrown) {
+        if (XMLHttpRequest.readyState == 4) {
+            console.log("HTTP Error");
+        }
+        else if (XMLHttpRequest.readyState == 0) {
+            console.log("Network Error");
+        }
+        else {
+            console.log("wat");
+        }
+    }
 });
 
 //****//
@@ -351,7 +406,7 @@ function getImageBrightness(imageSrc) {
         }
 
         brightness = Math.floor(colorSum / (this.width * this.height));
-       console.log(brightness);
+       //console.log(brightness);
 
         if (brightness < 200) {
             $(".contrast").css("-webkit-text-fill-color", "white");
@@ -405,7 +460,11 @@ $(function() {
 		stage = true;
 		}
 	});
-   });
+});
+
+
+//change from double click to right click
+/*
 $(function() {
     $('#weather').on('dblclick', function() {
         $('#changeKey').show(100); //show textbox
@@ -413,7 +472,19 @@ $(function() {
 		$('#inputKey').focus();
 		//$('#changeName').select();
     });
-   });
+   });*/
+    
+var timeoutId = 0;
+$(function () {
+    $("#weather").on("contextmenu", function (e) {
+        $('#changeKey').show(100); //show textbox
+        $(this).hide(100);
+        $('#inputKey').focus();
+        return false;
+    });
+});
+
+
  document.addEventListener('DOMContentLoaded', function() {
 	//if(#nameString = $("#nameInput").val() == null){
   document.getElementById("enterKey").addEventListener("click", setWeatherKey);
@@ -496,7 +567,6 @@ function closeApp() {
 }
 //*****************************//
 setInterval(function() {
-	
     //refresh the time variables
     hours = currentdate.getHours();
     year = currentdate.getFullYear();
