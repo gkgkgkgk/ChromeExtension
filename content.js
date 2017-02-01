@@ -222,7 +222,7 @@ function setTheTime() {
     })(this.document);
 }
 
-navigator.geolocation.getCurrentPosition(successFunction, errorFunction);
+navigator.geolocation.getCurrentPosition(successFunction, errorFunction, geo_options);
 
 function successFunction(position) {
     lat = position.coords.latitude;
@@ -235,6 +235,10 @@ function errorFunction(position) {
     console.log('Error!');
 }
 
+var geo_options = {
+  maximumAge: 54000000, //wait an hour and a half before updating position, allows for quicker calls to weather api
+  timeout: 10000 // wait 10 seconds before giving up on position
+};
 
 
 //***********WEATHER API AND FUNCTION***********//
@@ -272,12 +276,13 @@ $.ajax({
         }
     },
     success: function(response) {
-		//console.log(summary);
         summary = response.currently.summary;
+        		console.log(summary);
+
         if(summary == "Snow"){
 			snow(250);
 		}
-		else if(summary == "light-snow"){
+		else if(summary == "Light Snow" || summary == "Flurries"){
 			snow(25);
 			}
 		else if(summary == "rain"){
