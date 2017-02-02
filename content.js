@@ -61,7 +61,12 @@ chrome.storage.sync.get("apiKey", function(key) {
 DarkSkyKey = key.apiKey;
 //callWeather();
 });
-var weatherString = "weather";
+
+var weatherString = "Retrieving Weather";
+(function (weather) {
+    weather.getElementsByTagName("weather")[0].innerHTML = weatherString;
+})(this.document);
+
 var url = "temp!"
 var precip = 0;
 var summary = "";
@@ -228,6 +233,8 @@ function successFunction(position) {
     lat = position.coords.latitude;
     long = position.coords.longitude;
     console.log("lat:" + lat + " long:" + long);
+    var d = new Date();
+    console.log("called position: " + d.getMinutes() + ":" + d.getSeconds() + ":" + d.getMilliseconds());
     callWeather();
 }
 
@@ -236,24 +243,29 @@ function errorFunction(position) {
 }
 
 var geo_options = {
-  maximumAge: 54000000, //wait an hour and a half before updating position, allows for quicker calls to weather api
+  maximumAge: 5400000, //wait an hour and a half before updating position, allows for quicker calls to weather api
   timeout: 10000 // wait 10 seconds before giving up on position
 };
 
 
 //***********WEATHER API AND FUNCTION***********//
 //added some security with adding the API key!
+
+/* OpenWeatherMapVersion
 function callWeather() {
-	if(DarkSkyKey == null || DarkSkyKey.length< 5){
-		//console.log("null");
-		weatherString = "Right Click to Assign a Key! (Press Go then Refresh)";
-		setWeather();
-	}
-	else {
-$.ajax({
-    url: "https://api.darksky.net/forecast/"+DarkSkyKey+"/"+lat+","+long,
-    method: "GET",
-    error: function (XMLHttpRequest, textStatus, errorThrown) {
+    if (DarkSkyKey == null || DarkSkyKey.length < 5) {
+        //console.log("null");
+        weatherString = "Right Click to Assign a Key! (Press Go then Refresh)";
+        setWeather();
+    }
+    else {
+        
+
+        $.ajax({
+            url: "http://api.openweathermap.org/data/2.5/weather?lat="+lat+"&lon="+long+"&appid=" + "7e3f2f70d393c8b8d4d55024244b0a45",
+            method: "GET"
+        })
+    .fail(function (XMLHttpRequest, textStatus, errorThrown) {
         if (XMLHttpRequest.readyState == 4) {
             console.log("HTTP Error");
             DarkSkyKey = "null";
@@ -274,20 +286,80 @@ $.ajax({
             setWeather();
 
         }
-    },
-    success: function(response) {
-        summary = response.currently.summary;
-        		console.log(summary);
+    })
+    .done(function (response) {
+        summary = response.weather[0].main;
+        console.log(response);
+        
+        if (summary == "Snow") {
+            snow(250);
+        }
+        else if (summary == "Light Snow" || summary == "Flurries") {
+            snow(25);
+        }
+        else if (summary == "rain") {
+            rain();
+        }
 
-        if(summary == "Snow"){
-			snow(250);
-		}
-		else if(summary == "Light Snow" || summary == "Flurries"){
-			snow(25);
-			}
-		else if(summary == "rain"){
-			rain();
-		}
+        precip = response.main.pressure;
+        temperature = response.main.temp;
+        humidity = response.main.humidity;
+
+        setWeatherString();
+        setWeather();
+   
+   });
+    }
+}
+*/
+
+//DARKSKY VERSION
+function callWeather() {
+    if (DarkSkyKey == null || DarkSkyKey.length < 5) {
+        //console.log("null");
+        weatherString = "Right Click to Assign a Key! (Press Go then Refresh)";
+        setWeather();
+    }
+    else {
+        $.ajax({
+            url: "https://api.darksky.net/forecast/" + DarkSkyKey + "/" + lat + "," + long,
+            method: "GET"
+        })
+    .fail(function (XMLHttpRequest, textStatus, errorThrown) {
+        if (XMLHttpRequest.readyState == 4) {
+            console.log("HTTP Error");
+            DarkSkyKey = "null";
+            weatherString = "Invalid Key. Right click to change. (Press Go then Refresh)";
+            setWeather();
+        }
+        else if (XMLHttpRequest.readyState == 0) {
+            console.log("Network Error");
+            DarkSkyKey = "null";
+            weatherString = "Invalid Key. Right click to change. (Press Go then Refresh)";
+            setWeather();
+
+        }
+        else {
+            console.log("wat");
+            DarkSkyKey = "null";
+            weatherString = "Invalid Key. Right click to change. (Press Go then Refresh)";
+            setWeather();
+
+        }
+    })
+    .done(function (response) {
+        summary = response.currently.summary;
+        //console.log(summary);
+
+        if (summary == "Snow") {
+            snow(250);
+        }
+        else if (summary == "Light Snow" || summary == "Flurries") {
+            snow(25);
+        }
+        else if (summary == "rain") {
+            rain();
+        }
 
         precip = response.currently.precipProbability;
         temperature = response.currently.temperature;
@@ -295,10 +367,8 @@ $.ajax({
 
         setWeatherString();
         setWeather();
+    });
     }
-})
-	}
-
 }
 //****//
 function setWeatherString(){
@@ -323,6 +393,9 @@ function setWeather() {
     (function(weather) {
         weather.getElementsByTagName("weather")[0].innerHTML = weatherString;
     })(this.document);
+    var d = new Date();
+    console.log("called weather: "+d.getMinutes()+":"+d.getSeconds() + ":" + d.getMilliseconds());
+
 }
 
 function setWeatherKey(){
