@@ -525,6 +525,19 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
+$(function () {
+    $("#name").on("contextmenu", function (e) {
+       $('#changeName').show(100); //show textbox
+        $(this).hide(100);
+		$('#inputName').focus();
+		//$('#changeName').select();
+        welcomeMessage = "Would you like to change your name? ";
+        resetName();
+    });
+});
+
+
+/*
 $(function() {
     $('#name').on('dblclick', function() {
         $('#changeName').show(100); //show textbox
@@ -535,7 +548,7 @@ $(function() {
         resetName();
     });
    });
-
+*/
 var stage = true; 
 $(function() {
     $('#weather').on('click', function() {	
