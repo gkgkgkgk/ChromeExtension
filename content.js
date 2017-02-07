@@ -1,20 +1,19 @@
-chrome.runtime.onInstalled.addListener(function(details){
+/*chrome.runtime.onInstalled.addListener(function(details){
     if(details.reason == "install"){
         console.log("This is a first install!");
     }else if(details.reason == "update"){
         var thisVersion = chrome.runtime.getManifest().version;
         console.log("Updated from " + details.previousVersion + " to " + thisVersion + "!");
     }
-});
-
+});*/
 function process_bookmark(bookmarks) {
 
-    for (var i =0; i < bookmarks.length; i++) {
+    for (var i = 0; i < bookmarks.length; i++) {
         var bookmark = bookmarks[i];
         if (bookmark.url) {
             //console.log("bookmark: "+ bookmark.title + " ~  " + bookmark.url);
-			var newName = bookmark.title.replace(/\s+/g, '');
-            $(".sidenav").append("<a href='"+bookmark.url+"'>"+newName+"</a>");
+            var newName = bookmark.title.replace(/\s+/g, '');
+            $(".sidenav").append("<a href='" + bookmark.url + "'>" + newName + "</a>");
             $(".sidenav").append('<p style = "color:white;">______________</p>');
 
         }
@@ -23,13 +22,9 @@ function process_bookmark(bookmarks) {
         }
     }
 }
-
- document.getElementById("myAppWindow").style.width = "0";
-    	document.getElementById("openApp").style.visibility = "visible";
-
-
-//console.log("listing bookmarks: " );
-  chrome.bookmarks.getTree( process_bookmark );
+document.getElementById("myAppWindow").style.width = "0";
+document.getElementById("openApp").style.visibility = "visible";
+chrome.bookmarks.getTree(process_bookmark);
 //*****************************//
 //Date and Time
 var currentdate = new Date();
@@ -44,26 +39,30 @@ var status = "AM";
 var welcomeMessage = "";
 var brightness = 0;
 chrome.storage.sync.get("nameSaved", function(name) {
-//console.log(name.nameSaved);
-nameString = name.nameSaved;
-setName();
+    if (name.nameSaved == null || !name.nameSaved) {
+        nameString = "Right Click Here!"
+        console.log(nameString);
+    }
+    nameString = name.nameSaved;
+
+    setName();
 });
 
 var nameString = "Click Here to Edit Name";
-var DarkSkyKey = "9586c77dc682ad17f93495cd931c700f";
+var DarkSkyKey = "";
 var lat;
 var long;
 //weather variables
 
 
 chrome.storage.sync.get("apiKey", function(key) {
-//console.log(name.nameSaved);
-DarkSkyKey = key.apiKey;
-//callWeather();
+    //console.log(name.nameSaved);
+    DarkSkyKey = key.apiKey;
+    //callWeather();
 });
 
 var weatherString = "Retrieving Weather";
-(function (weather) {
+(function(weather) {
     weather.getElementsByTagName("weather")[0].innerHTML = weatherString;
 })(this.document);
 
@@ -72,9 +71,18 @@ var precip = 0;
 var summary = "";
 var temperature = 0;
 var humidity = 0;
-
 $('#changeName').hide();
 $('#changeKey').hide();
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById("enterKey").addEventListener("click", setWeatherKey);
+    document.getElementById("cancelKey").addEventListener("click", cancelWeatherKey);
+    document.getElementById("nameButton").addEventListener("click", changeName);
+    document.getElementById("cancelName").addEventListener("click", cancelName);
+    document.getElementById("openApp").addEventListener("click", openApp);
+    document.getElementById("closeApp").addEventListener("click", closeApp);
+    document.getElementById("closeNav").addEventListener("click", closeNav);
+    document.getElementById("openNav").addEventListener("click", openNav);
+});
 
 //find name of month from number
 switch (month) {
@@ -115,70 +123,69 @@ switch (month) {
         monthString = "December ";
         break;
     default:
-        monthString = "This probably shoud not happen";
+        monthString = "This probably should not happen";
         break;
 }
 
 //run all the functions once
 setWelcomeMessage();
-setName();
 setTheDate();
 setTheTime();
 
 //****//
 function setWelcomeMessage() {
-    if(hours <= 4){
-    	welcomeMessage = "Good Evening, "
-    	}
-    else if (hours <= 12) {
-        welcomeMessage = "Good Morning, "
-    }  
-    else if (hours < 17) {
-        welcomeMessage = "Good Afternoon, "
-    }  
-    else if (hours >= 17) {
+    if (hours <= 4) {
         welcomeMessage = "Good Evening, "
-    } 
-    
+    } else if (hours <= 12) {
+        welcomeMessage = "Good Morning, "
+    } else if (hours < 17) {
+        welcomeMessage = "Good Afternoon, "
+    } else if (hours >= 17) {
+        welcomeMessage = "Good Evening, "
+    }
+
     (function(message) {
         message.getElementsByTagName("message")[0].innerHTML = welcomeMessage;
     })(this.document);
-    }
+}
 
 
-function setName(){
+function setName() {
 
-    	(function(Name) {
+    (function(Name) {
 
         Name.getElementsByTagName("name")[0].innerHTML = nameString;
     })(this.document);
-    	 }
-    	 
-    	 
-function resetName(){
-	(function(Name) {
+}
+
+
+function resetName() {
+    (function(Name) {
         Name.getElementsByTagName("message")[0].innerHTML = welcomeMessage;
     })(this.document);
     (function(Name) {
         Name.getElementsByTagName("name")[0].innerHTML = nameString;
     })(this.document);
-	}
-	
-function changeName(){
-	nameString = $("#nameInput").val();
-	 chrome.storage.sync.set({'nameSaved': nameString}, function() {
-
-        });
-	setWelcomeMessage();
-	resetName();
-	$("#name").show(150);
-	$('#changeName').hide(150);
 }
-function cancelName(){
-	setWelcomeMessage();
-	resetName();
-	$("#name").show(150);
-	$('#changeName').hide(150);
+
+function changeName() {
+    nameString = $("#nameInput").val();
+    chrome.storage.sync.set({
+        'nameSaved': nameString
+    }, function() {
+
+    });
+    setWelcomeMessage();
+    resetName();
+    $("#name").show(150);
+    $('#changeName').hide(150);
+}
+
+function cancelName() {
+    setWelcomeMessage();
+    resetName();
+    $("#name").show(150);
+    $('#changeName').hide(150);
 }
 
 
@@ -194,24 +201,21 @@ function setTheDate() {
 }
 //****//
 function setTheTime() {
-	//console.log(hours);
+    //console.log(hours);
     (function(c) {
         var newHours = hours;
         var zero = "";
-        if(hours == 12){
-        	status = "PM";
-        	newHours = hours;
-        	}
-			else if (hours == 0){
-				newHours = 12;
-				status = "AM";
-			}
-        else if (hours > 12) {
+        if (hours == 12) {
+            status = "PM";
+            newHours = hours;
+        } else if (hours == 0) {
+            newHours = 12;
+            status = "AM";
+        } else if (hours > 12) {
             newHours -= 12;
-                    	status = "PM";
+            status = "PM";
 
-        }
-		else {
+        } else {
             newHours = hours;
             status = "AM";
         }
@@ -243,8 +247,8 @@ function errorFunction(position) {
 }
 
 var geo_options = {
-  maximumAge: 5400000, //wait an hour and a half before updating position, allows for quicker calls to weather api
-  timeout: 10000 // wait 10 seconds before giving up on position
+    maximumAge: 5400000, //wait an hour and a half before updating position, allows for quicker calls to weather api
+    timeout: 10000 // wait 10 seconds before giving up on position
 };
 
 
@@ -319,60 +323,55 @@ function callWeather() {
         //console.log("null");
         weatherString = "Right Click to Assign a Key! (Press Go then Refresh)";
         setWeather();
-    }
-    else {
+    } else {
         $.ajax({
-            url: "https://api.darksky.net/forecast/" + DarkSkyKey + "/" + lat + "," + long,
-            method: "GET"
-        })
-    .fail(function (XMLHttpRequest, textStatus, errorThrown) {
-        if (XMLHttpRequest.readyState == 4) {
-            console.log("HTTP Error");
-            DarkSkyKey = "null";
-            weatherString = "Invalid Key. Right click to change. (Press Go then Refresh)";
-            setWeather();
-        }
-        else if (XMLHttpRequest.readyState == 0) {
-            console.log("Network Error");
-            DarkSkyKey = "null";
-            weatherString = "Invalid Key. Right click to change. (Press Go then Refresh)";
-            setWeather();
+                url: "https://api.darksky.net/forecast/" + DarkSkyKey + "/" + lat + "," + long,
+                method: "GET"
+            })
+            .fail(function(XMLHttpRequest, textStatus, errorThrown) {
+                if (XMLHttpRequest.readyState == 4) {
+                    console.log("HTTP Error");
+                    DarkSkyKey = "null";
+                    weatherString = "Invalid Key. Right click to change. (Press Go then Refresh)";
+                    setWeather();
+                } else if (XMLHttpRequest.readyState == 0) {
+                    console.log("Network Error");
+                    DarkSkyKey = "null";
+                    weatherString = "Invalid Key. Right click to change. (Press Go then Refresh)";
+                    setWeather();
 
-        }
-        else {
-            console.log("wat");
-            DarkSkyKey = "null";
-            weatherString = "Invalid Key. Right click to change. (Press Go then Refresh)";
-            setWeather();
+                } else {
+                    console.log("wat");
+                    DarkSkyKey = "null";
+                    weatherString = "Invalid Key. Right click to change. (Press Go then Refresh)";
+                    setWeather();
 
-        }
-    })
-    .done(function (response) {
-        summary = response.currently.summary;
-        //console.log(summary);
+                }
+            })
+            .done(function(response) {
+                summary = response.currently.summary;
+                //console.log(summary);
 
-        if (summary == "Snow") {
-            snow(250);
-        }
-        else if (summary == "Light Snow" || summary == "Flurries") {
-            snow(25);
-        }
-        else if (summary == "rain") {
-            rain();
-        }
+                if (summary == "Snow") {
+                    snow(250);
+                } else if (summary == "Light Snow" || summary == "Flurries") {
+                    snow(25);
+                } else if (summary == "rain") {
+                    rain();
+                }
 
-        precip = response.currently.precipProbability;
-        temperature = response.currently.temperature;
-        humidity = response.currently.humidity;
+                precip = response.currently.precipProbability;
+                temperature = response.currently.temperature;
+                humidity = response.currently.humidity;
 
-        setWeatherString();
-        setWeather();
-    });
+                setWeatherString();
+                setWeather();
+            });
     }
 }
 //****//
-function setWeatherString(){
-	if (temperature < 0) {
+function setWeatherString() {
+    if (temperature < 0) {
         weatherString = "Its " + Math.round(temperature) + " degrees... wear a heavy coat or dont go outside.";
     } else if (temperature < 40) {
         weatherString = "Its " + Math.round(temperature) + " degrees... wear a coat.";
@@ -386,7 +385,7 @@ function setWeatherString(){
         weatherString = "Its " + Math.round(temperature) + " degrees... hydrate or stay indoors.";
     }
 
-	}
+}
 
 
 function setWeather() {
@@ -394,37 +393,37 @@ function setWeather() {
         weather.getElementsByTagName("weather")[0].innerHTML = weatherString;
     })(this.document);
     var d = new Date();
-    console.log("called weather: "+d.getMinutes()+":"+d.getSeconds() + ":" + d.getMilliseconds());
-
+    console.log("called weather: " + d.getMinutes() + ":" + d.getSeconds() + ":" + d.getMilliseconds());
 }
 
-function setWeatherKey(){
-	DarkSkyApi = $("#keyInput").val();
-	 chrome.storage.sync.set({'apiKey': DarkSkyApi}, function() {
-
-        });
-	$("#weather").show(150);
-	$('#changeKey').hide(150);
-	//callWeather();
-	setWeatherString();
-	setWeather();
+function setWeatherKey() {
+    DarkSkyApi = $("#keyInput").val();
+    chrome.storage.sync.set({
+        'apiKey': DarkSkyApi
+    }, function() {});
+    $("#weather").show(150);
+    $('#changeKey').hide(150);
+    //callWeather();
+    setWeatherString();
+    setWeather();
 }
-function cancelWeatherKey(){
+
+function cancelWeatherKey() {
     setWeatherString();
     setWeather();
     //callWeather();
-	$("#weather").show(150);
-	$('#changeKey').hide(150);
+    $("#weather").show(150);
+    $('#changeKey').hide(150);
 
 
-	}
+}
 //***********END OF WEATHER API AND FUNCTION***********//
 var vibrantColor;
 //bing image of the day!!!!!!
 $.ajax({
     url: "http://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1",
     method: "GET",
-    success: function (response) {
+    success: function(response) {
         url = "http://bing.com" + response.images[0].url;
         //console.log(url);
         $("body").css("background-image", "url(" + url + ")");
@@ -451,14 +450,12 @@ $.ajax({
         });
         */
     },
-    error: function (XMLHttpRequest, textStatus, errorThrown) {
+    error: function(XMLHttpRequest, textStatus, errorThrown) {
         if (XMLHttpRequest.readyState == 4) {
             console.log("HTTP Error");
-        }
-        else if (XMLHttpRequest.readyState == 0) {
+        } else if (XMLHttpRequest.readyState == 0) {
             console.log("Network Error");
-        }
-        else {
+        } else {
             console.log("wat");
         }
     }
@@ -496,7 +493,7 @@ function getImageBrightness(imageSrc) {
         }
 
         brightness = Math.floor(colorSum / (this.width * this.height));
-       //console.log(brightness);
+        //console.log(brightness);
 
         if (brightness < 200) {
             $(".contrast").css("-webkit-text-fill-color", "white");
@@ -515,22 +512,15 @@ function getImageBrightness(imageSrc) {
     }
 }
 
-document.addEventListener('DOMContentLoaded', function() {
-	//if(#nameString = $("#nameInput").val() == null){
-  document.getElementById("nameButton").addEventListener("click", changeName);
-	//}
-});
-document.addEventListener('DOMContentLoaded', function() {
-  document.getElementById("cancelName").addEventListener("click", cancelName);
-});
 
 
-$(function () {
-    $("#name").on("contextmenu", function (e) {
-       $('#changeName').show(100); //show textbox
+
+$(function() {
+    $("#name").on("contextmenu", function(e) {
+        $('#changeName').show(100); //show textbox
         $(this).hide(100);
-		$('#inputName').focus();
-		//$('#changeName').select();
+        $('#inputName').focus();
+        //$('#changeName').select();
         welcomeMessage = "Would you like to change your name? ";
         resetName();
     });
@@ -549,20 +539,19 @@ $(function() {
     });
    });
 */
-var stage = true; 
+var stage = true;
 $(function() {
-    $('#weather').on('click', function() {	
-	if(stage == true){
-	weatherString = precip+"% Chance of Precipitation | " + summary + " | Humidity: "+Math.round(humidity*100)+"%";
-	    setWeather();
-	    stage = false;
-	}
-	else if (stage == false){
-		setWeatherString();
-		setWeather();
-		stage = true;
-		}
-	});
+    $('#weather').on('click', function() {
+        if (stage == true) {
+            weatherString = precip + "% Chance of Precipitation | " + summary + " | Humidity: " + Math.round(humidity * 100) + "%";
+            setWeather();
+            stage = false;
+        } else if (stage == false) {
+            setWeatherString();
+            setWeather();
+            stage = true;
+        }
+    });
 });
 
 
@@ -576,10 +565,10 @@ $(function() {
 		//$('#changeName').select();
     });
    });*/
-    
+
 var timeoutId = 0;
-$(function () {
-    $("#weather").on("contextmenu", function (e) {
+$(function() {
+    $("#weather").on("contextmenu", function(e) {
         $('#changeKey').show(100); //show textbox
         $(this).hide(100);
         $('#inputKey').focus();
@@ -588,84 +577,55 @@ $(function () {
 });
 
 
- document.addEventListener('DOMContentLoaded', function() {
-	//if(#nameString = $("#nameInput").val() == null){
-  document.getElementById("enterKey").addEventListener("click", setWeatherKey);
-  
-	//}
-});
-document.addEventListener('DOMContentLoaded', function() {
-  document.getElementById("cancelKey").addEventListener("click", cancelWeatherKey);
-}); 
 
 $(document).keydown(function(e) {
-    if(e.which == 37){
-    		if($('#mySidenav').css("width") == "0px"){
-        	openNav();
-        	//console.log("Left");
-        	}
-       		else{
-       		closeNav();
-       		//console.log("Left Off");
-       		}
+    if (e.which == 37) {
+        if ($('#mySidenav').css("width") == "0px") {
+            openNav();
+            //console.log("Left");
+        } else {
+            closeNav();
+            //console.log("Left Off");
+        }
 
-    	}
-       if(e.which == 39){
-    		if($('#myAppWindow').css("width") == "0px"){
-        	openApp();
-        	//console.log("right");
-        	}
-       		else{
-       		closeApp();
-       		//console.log("right Off");
-       		}
+    }
+    if (e.which == 39) {
+        if ($('#myAppWindow').css("width") == "0px") {
+            openApp();
+            //console.log("right");
+        } else {
+            closeApp();
+            //console.log("right Off");
+        }
 
-    	}
-    
+    }
+
     //e.preventDefault(); // prevent the default action (scroll / move caret)
 });
-  
-  
-   
-document.addEventListener('DOMContentLoaded', function() {
-  document.getElementById("openNav").addEventListener("click", openNav);
-});
-document.addEventListener('DOMContentLoaded', function() {
-  document.getElementById("closeNav").addEventListener("click", closeNav);
-});
 
-function openNav() {
-    document.getElementById("mySidenav").style.width = "15em";
-    	document.getElementById("openNav").style.visibility = "hidden";
-
-}
-
-/* Set the width of the side navigation to 0 */
-function closeNav() {
-    document.getElementById("mySidenav").style.width = "0";
-    	document.getElementById("openNav").style.visibility = "visible";
-
-}
-
-
-
-
-document.addEventListener('DOMContentLoaded', function() {
-  document.getElementById("openApp").addEventListener("click", openApp);
-});
-document.addEventListener('DOMContentLoaded', function() {
-  document.getElementById("closeApp").addEventListener("click", closeApp);
-});
 function openApp() {
     document.getElementById("myAppWindow").style.width = "15em";
-    	document.getElementById("openApp").style.visibility = "hidden";
+    document.getElementById("openApp").style.visibility = "hidden";
 
 }
 
 /* Set the width of the side navigation to 0 */
 function closeApp() {
     document.getElementById("myAppWindow").style.width = "0";
-    	document.getElementById("openApp").style.visibility = "visible";
+    document.getElementById("openApp").style.visibility = "visible";
+
+}
+
+function openNav() {
+    document.getElementById("mySidenav").style.width = "15em";
+    document.getElementById("openNav").style.visibility = "hidden";
+
+}
+
+/* Set the width of the side navigation to 0 */
+function closeNav() {
+    document.getElementById("mySidenav").style.width = "0";
+    document.getElementById("openNav").style.visibility = "visible";
 
 }
 //*****************************//
@@ -676,161 +636,166 @@ setInterval(function() {
     hours = currentdate.getHours();
     minutes = currentdate.getMinutes();
     currentdate = new Date();
-	//refresh the time
+    //refresh the time
     setTheTime();
 }, 1000);
 //***********************//
 
 
-function snow(amount){
-	console.log("snow");
-	var canvas = document.getElementById("canvas");
-	var ctx = canvas.getContext("2d");
-	
-	//canvas dimensions
-	var W = window.innerWidth;
-	var H = window.innerHeight;
-	canvas.width = W;
-	canvas.height = H;
-	
-	//snowflake particles
-	var mp = amount; //max particles
-	var particles = [];
-	for(var i = 0; i < mp; i++)
-	{
-		particles.push({
-			x: Math.random()*W, //x-coordinate
-			y: Math.random()*H, //y-coordinate
-			r: Math.random()*4+1, //radius
-			d: Math.random()*mp //density
-		})
-	}
-	
-	//Lets draw the flakes
-	function draw()
-	{
-		ctx.clearRect(0, 0, W, H);
-		
-		ctx.fillStyle = "rgba(255, 255, 255, 0.8)";
-		ctx.beginPath();
-		for(var i = 0; i < mp; i++)
-		{
-			var p = particles[i];
-			ctx.moveTo(p.x, p.y);
-			ctx.arc(p.x, p.y, p.r, 0, Math.PI*2, true);
-		}
-		ctx.fill();
-		update();
-	}
-	
-	//Function to move the snowflakes
-	//angle will be an ongoing incremental flag. Sin and Cos functions will be applied to it to create vertical and horizontal movements of the flakes
-	var angle = 0;
-	function update()
-	{
-		angle += 0.01;
-		for(var i = 0; i < mp; i++)
-		{
-			var p = particles[i];
-			//Updating X and Y coordinates
-			//We will add 1 to the cos function to prevent negative values which will lead flakes to move upwards
-			//Every particle has its own density which can be used to make the downward movement different for each flake
-			//Lets make it more random by adding in the radius
-			p.y += Math.cos(angle+p.d) + 1 + p.r/2;
-			p.x += Math.sin(angle) * 2;
-			
-			//Sending flakes back from the top when it exits
-			//Lets make it a bit more organic and let flakes enter from the left and right also.
-			if(p.x > W+5 || p.x < -5 || p.y > H)
-			{
-				if(i%3 > 0) //66.67% of the flakes
-				{
-					particles[i] = {x: Math.random()*W, y: -10, r: p.r, d: p.d};
-				}
-				else
-				{
-					//If the flake is exitting from the right
-					if(Math.sin(angle) > 0)
-					{
-						//Enter from the left
-						particles[i] = {x: -5, y: Math.random()*H, r: p.r, d: p.d};
-					}
-					else
-					{
-						//Enter from the right
-						particles[i] = {x: W+5, y: Math.random()*H, r: p.r, d: p.d};
-					}
-				}
-			}
-		}
-	}
-	
-	//animation loop
-	setInterval(draw, 33);
+function snow(amount) {
+    console.log("snow");
+    var canvas = document.getElementById("canvas");
+    var ctx = canvas.getContext("2d");
+
+    //canvas dimensions
+    var W = window.innerWidth;
+    var H = window.innerHeight;
+    canvas.width = W;
+    canvas.height = H;
+
+    //snowflake particles
+    var mp = amount; //max particles
+    var particles = [];
+    for (var i = 0; i < mp; i++) {
+        particles.push({
+            x: Math.random() * W, //x-coordinate
+            y: Math.random() * H, //y-coordinate
+            r: Math.random() * 4 + 1, //radius
+            d: Math.random() * mp //density
+        })
+    }
+
+    //Lets draw the flakes
+    function draw() {
+        ctx.clearRect(0, 0, W, H);
+
+        ctx.fillStyle = "rgba(255, 255, 255, 0.8)";
+        ctx.beginPath();
+        for (var i = 0; i < mp; i++) {
+            var p = particles[i];
+            ctx.moveTo(p.x, p.y);
+            ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2, true);
+        }
+        ctx.fill();
+        update();
+    }
+
+    //Function to move the snowflakes
+    //angle will be an ongoing incremental flag. Sin and Cos functions will be applied to it to create vertical and horizontal movements of the flakes
+    var angle = 0;
+
+    function update() {
+        angle += 0.01;
+        for (var i = 0; i < mp; i++) {
+            var p = particles[i];
+            //Updating X and Y coordinates
+            //We will add 1 to the cos function to prevent negative values which will lead flakes to move upwards
+            //Every particle has its own density which can be used to make the downward movement different for each flake
+            //Lets make it more random by adding in the radius
+            p.y += Math.cos(angle + p.d) + 1 + p.r / 2;
+            p.x += Math.sin(angle) * 2;
+
+            //Sending flakes back from the top when it exits
+            //Lets make it a bit more organic and let flakes enter from the left and right also.
+            if (p.x > W + 5 || p.x < -5 || p.y > H) {
+                if (i % 3 > 0) //66.67% of the flakes
+                {
+                    particles[i] = {
+                        x: Math.random() * W,
+                        y: -10,
+                        r: p.r,
+                        d: p.d
+                    };
+                } else {
+                    //If the flake is exitting from the right
+                    if (Math.sin(angle) > 0) {
+                        //Enter from the left
+                        particles[i] = {
+                            x: -5,
+                            y: Math.random() * H,
+                            r: p.r,
+                            d: p.d
+                        };
+                    } else {
+                        //Enter from the right
+                        particles[i] = {
+                            x: W + 5,
+                            y: Math.random() * H,
+                            r: p.r,
+                            d: p.d
+                        };
+                    }
+                }
+            }
+        }
+    }
+
+    //animation loop
+    setInterval(draw, 33);
 }
 
 //}
 
 
-function rain(){
-	console.log("rain");
-  var canvas = $('#canvas')[0];
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-  
-  if(canvas.getContext) {
-    var ctx = canvas.getContext('2d');
-    var w = canvas.width;
-    var h = canvas.height;
-    ctx.strokeStyle = 'rgba(174,194,224,0.5)';
-    ctx.lineWidth = 1;
-    ctx.lineCap = 'round';
-    
-    
-    var init = [];
-    var maxParts = 1000;
-    for(var a = 0; a < maxParts; a++) {
-      init.push({
-        x: Math.random() * w,
-        y: Math.random() * h,
-        l: Math.random() * 1,
-        xs: -4 + Math.random() * 4 + 2,
-        ys: Math.random() * 10 + 10
-      })
-    }
-    
-    var particles = [];
-    for(var b = 0; b < maxParts; b++) {
-      particles[b] = init[b];
-    }
-    
-    function draw() {
-      ctx.clearRect(0, 0, w, h);
-      for(var c = 0; c < particles.length; c++) {
-        var p = particles[c];
-        ctx.beginPath();
-        ctx.moveTo(p.x, p.y);
-        ctx.lineTo(p.x + p.l * p.xs, p.y + p.l * p.ys);
-        ctx.stroke();
-      }
-      move();
-    }
-    
-    function move() {
-      for(var b = 0; b < particles.length; b++) {
-        var p = particles[b];
-        p.x += p.xs;
-        p.y += p.ys;
-        if(p.x > w || p.y > h) {
-          p.x = Math.random() * w;
-          p.y = -20;
+function rain() {
+    console.log("rain");
+    var canvas = $('#canvas')[0];
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    if (canvas.getContext) {
+        var ctx = canvas.getContext('2d');
+        var w = canvas.width;
+        var h = canvas.height;
+        ctx.strokeStyle = 'rgba(174,194,224,0.5)';
+        ctx.lineWidth = 1;
+        ctx.lineCap = 'round';
+
+
+        var init = [];
+        var maxParts = 1000;
+        for (var a = 0; a < maxParts; a++) {
+            init.push({
+                x: Math.random() * w,
+                y: Math.random() * h,
+                l: Math.random() * 1,
+                xs: -4 + Math.random() * 4 + 2,
+                ys: Math.random() * 10 + 10
+            })
         }
-      }
+
+        var particles = [];
+        for (var b = 0; b < maxParts; b++) {
+            particles[b] = init[b];
+        }
+
+        function draw() {
+            ctx.clearRect(0, 0, w, h);
+            for (var c = 0; c < particles.length; c++) {
+                var p = particles[c];
+                ctx.beginPath();
+                ctx.moveTo(p.x, p.y);
+                ctx.lineTo(p.x + p.l * p.xs, p.y + p.l * p.ys);
+                ctx.stroke();
+            }
+            move();
+        }
+
+        function move() {
+            for (var b = 0; b < particles.length; b++) {
+                var p = particles[b];
+                p.x += p.xs;
+                p.y += p.ys;
+                if (p.x > w || p.y > h) {
+                    p.x = Math.random() * w;
+                    p.y = -20;
+                }
+            }
+        }
+
+        setInterval(draw, 30);
+
     }
-    
-    setInterval(draw, 30);
-    
-  }
 }
 
 /*
