@@ -5,6 +5,7 @@
       <meta charset="UTF-8">
       <link href="CSS/bootstrap/css/bootstrap.css" rel="stylesheet">
       <link href="CSS/CSS.css" rel="stylesheet">
+      <link href="CSS/modal.css" rel="stylesheet">
 	  <link href="CSS/sideBar.css" rel="stylesheet">
 	  <link href="CSS/Hover/css/hover.css" rel="stylesheet">
 	  <header>
@@ -67,7 +68,27 @@
 </div>
 </div>
 </div>
+<div id="weatherTab" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h1 id ="headLineWeather" class ="contrast">Weather</h1>
+
+    <div style = "bottom: 50%; display: flex; flex-direction: row; flex-wrap: nowrap; justify-content: space-around; align-items: center; align-content: center;background-color: #2F324A;">
+        <div id ="day1"class ="contrast day"><h2>Day</h2><p>MinMax</p><p>summary</p></div>
+        <div id ="day2" class ="contrast day"><h2>Day</h2><p>MinMax</p><p>summary</p></div>
+        <div id ="day3" class ="contrast day"><h2>Day</h2><p>MinMax</p><p>summary</p></div>
+        <div id ="day4" class ="contrast day"><h2>Day</h2><p>MinMax</p><p>summary</p></div>
+        <div id ="day5" class ="contrast day"><h2>Day</h2><p>MinMax</p><p>summary</p></div>
+    </div>
+    <h1 id ="weekSum" class ="contrast"></h1>
+
+  </div>
+
+</div>
    <footer>
+
  <h3 id="weather" class="contrast">
          <weather>
       </h3>

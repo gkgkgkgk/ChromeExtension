@@ -350,7 +350,7 @@ function callWeather() {
             })
             .done(function(response) {
                 summary = response.currently.summary;
-                //console.log(summary);
+                console.log(response);
 
                 if (summary == "Snow") {
                     snow(250);
@@ -359,6 +359,44 @@ function callWeather() {
                 } else if (summary == "rain") {
                     rain();
                 }
+
+                var days = [5];
+                for (var i = 0; i < 5; i++) {
+                    var str = "";
+                    console.log(currentdate.getDay());
+                    switch (currentdate.getDay()+i) {
+                        case 0:
+                            str = "Monday";
+                            break;
+                        case 1:
+                            str = "Tuesday"
+                            break;
+                        case 2:
+                            str = "Wednesday";
+                            break;
+                        case 3:
+                            str = "Thursday";
+                            break;
+                        case 4:
+                            str = "Friday"
+                            break;
+                        case 5:
+                            str = "Saturday";
+                            break;
+                        case 6:
+                            str = "Sunday";
+                            break;
+                    }
+                    days[i] = str;
+                }
+
+
+                for (var num = 0; num < 5; num++) {
+                    $('#day' + (num + 1) + ' h2:first').text(days[num]);
+                    $('#day' + (num + 1) + ' p:first').html(Math.round(response.daily.data[num].temperatureMin) + '&deg;' + " - " + Math.round(response.daily.data[num].temperatureMax) + '&deg;');
+                    $('#day' + (num + 1) + ' p:nth-child(3)').text(response.daily.data[num].summary);
+                }
+                $('#weekSum').text(response.daily.summary);
 
                 precip = response.currently.precipProbability;
                 temperature = response.currently.temperature;
@@ -541,8 +579,11 @@ $(function() {
 */
 var stage = true;
 $(function() {
-    $('#weather').on('click', function() {
-        if (stage == true) {
+    $('#weather').on('click', function () {
+        $('#weather').hide();
+        modal.style.display = "block";
+        $('#headLineWeather').text((precip*100) + "% Chance of Precipitation | " + summary + " | Humidity: " + Math.round(humidity * 100) + "%");
+        /*if (stage == true) {
             weatherString = precip + "% Chance of Precipitation | " + summary + " | Humidity: " + Math.round(humidity * 100) + "%";
             setWeather();
             stage = false;
@@ -550,9 +591,21 @@ $(function() {
             setWeatherString();
             setWeather();
             stage = true;
-        }
+        }*/
+
     });
 });
+var modal = document.getElementById('weatherTab');
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+// When the user clicks on <span> (x), close the modal
+span.onclick = function () {
+    $(modal).hide("slide", { direction: "down" }, 250);
+   // modal.style.display = "none";
+    $('#weather').show();
+
+}
+
 
 
 //change from double click to right click
