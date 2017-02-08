@@ -84,6 +84,49 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById("openNav").addEventListener("click", openNav);
 });
 
+
+
+var days = [5];
+for (var i = 0; i < 5; i++) {
+    var str = "";
+    //console.log(currentdate.getDay());
+    var num = 0;
+    num = currentdate.getDay() + i;
+    if (num == 7) {
+        num -= 7;
+    }
+
+    console.log(num);
+    switch (num) {
+        case 0:
+            str = "Monday";
+            break;
+        case 1:
+            str = "Tuesday"
+            break;
+        case 2:
+            str = "Wednesday";
+            break;
+        case 3:
+            str = "Thursday";
+            break;
+        case 4:
+            str = "Friday"
+            break;
+        case 5:
+            str = "Saturday";
+            break;
+        case 6:
+            str = "Sunday";
+            break;
+    }
+    days[i] = str;
+    $('#day' + (i + 1) + ' h2:first').text(days[i]);
+
+}
+
+
+
 //find name of month from number
 switch (month) {
     case 0:
@@ -360,41 +403,12 @@ function callWeather() {
                     rain();
                 }
 
-                var days = [5];
-                for (var i = 0; i < 5; i++) {
-                    var str = "";
-                    console.log(currentdate.getDay());
-                    switch (currentdate.getDay()+i) {
-                        case 0:
-                            str = "Monday";
-                            break;
-                        case 1:
-                            str = "Tuesday"
-                            break;
-                        case 2:
-                            str = "Wednesday";
-                            break;
-                        case 3:
-                            str = "Thursday";
-                            break;
-                        case 4:
-                            str = "Friday"
-                            break;
-                        case 5:
-                            str = "Saturday";
-                            break;
-                        case 6:
-                            str = "Sunday";
-                            break;
-                    }
-                    days[i] = str;
-                }
+
 
 
                 for (var num = 0; num < 5; num++) {
-                    $('#day' + (num + 1) + ' h2:first').text(days[num]);
-                    $('#day' + (num + 1) + ' p:first').html(Math.round(response.daily.data[num].temperatureMin) + '&deg;' + " - " + Math.round(response.daily.data[num].temperatureMax) + '&deg;');
-                    $('#day' + (num + 1) + ' p:nth-child(3)').text(response.daily.data[num].summary);
+                    $('#day' + (num + 1) + ' p:first').html(Math.round(response.daily.data[num + 1].temperatureMin) + '&deg;' + " - " + Math.round(response.daily.data[num].temperatureMax) + '&deg;');
+                    $('#day' + (num + 1) + ' p:nth-child(3)').text(response.daily.data[num + 1].summary);
                 }
                 $('#weekSum').text(response.daily.summary);
 
@@ -579,10 +593,10 @@ $(function() {
 */
 var stage = true;
 $(function() {
-    $('#weather').on('click', function () {
+    $('#weather').on('click', function() {
         $('#weather').hide();
         modal.style.display = "block";
-        $('#headLineWeather').text((precip*100) + "% Chance of Precipitation | " + summary + " | Humidity: " + Math.round(humidity * 100) + "%");
+        $('#headLineWeather').text((precip * 100) + "% Chance of Precipitation | " + summary + " | Humidity: " + Math.round(humidity * 100) + "%");
         /*if (stage == true) {
             weatherString = precip + "% Chance of Precipitation | " + summary + " | Humidity: " + Math.round(humidity * 100) + "%";
             setWeather();
@@ -599,9 +613,11 @@ var modal = document.getElementById('weatherTab');
 // Get the <span> element that closes the modal
 var span = document.getElementsByClassName("close")[0];
 // When the user clicks on <span> (x), close the modal
-span.onclick = function () {
-    $(modal).hide("slide", { direction: "down" }, 250);
-   // modal.style.display = "none";
+span.onclick = function() {
+    $(modal).hide("slide", {
+        direction: "down"
+    }, 250);
+    // modal.style.display = "none";
     $('#weather').show();
 
 }
@@ -860,3 +876,28 @@ function rain() {
   \__, |_|\_\__, |_|\_\__, |_|\_\__, |_|\_\
    __/ |     __/ |     __/ |     __/ |     
   |___/     |___/     |___/     |___/      */
+
+
+/*
+var skycons = new Skycons({"color": "pink"});
+// on Android, a nasty hack is needed: {"resizeClear": true}
+
+// you can add a canvas by it's ID...
+skycons.add("icon1", Skycons.PARTLY_CLOUDY_DAY);
+
+// ...or by the canvas DOM element itself.
+skycons.add(document.getElementById("icon2"), Skycons.RAIN);
+
+// if you're using the Forecast API, you can also supply
+// strings: "partly-cloudy-day" or "rain".
+
+// start animation!
+skycons.play();
+
+// you can also halt animation with skycons.pause()
+
+// want to change the icon? no problem:
+skycons.set("icon1", Skycons.PARTLY_CLOUDY_NIGHT);
+
+// want to remove one altogether? no problem:
+skycons.remove("icon2");*/
