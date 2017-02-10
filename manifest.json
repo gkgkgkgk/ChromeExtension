@@ -1,7 +1,7 @@
 {
 	"name": "Better Tabs",
 	"description": "a smart new tab page",
-	"version": "2.4",
+	"version": "2.5",
 	"incognito": "split",
 	"chrome_url_overrides": {"newtab": "newtab.html"},
 	"manifest_version": 2,

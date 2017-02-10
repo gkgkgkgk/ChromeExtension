@@ -85,6 +85,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
+$('#headLineWeather').text((precip * 100) + "% Chance of Precipitation | " + summary + " | Humidity: " + Math.round(humidity * 100) + "%");
 
 var days = [5];
 for (var i = 0; i < 5; i++) {
@@ -596,8 +597,7 @@ $(function() {
     $('#weather').on('click', function() {
         $('#weather').hide();
         modal.style.display = "block";
-        $('#headLineWeather').text((precip * 100) + "% Chance of Precipitation | " + summary + " | Humidity: " + Math.round(humidity * 100) + "%");
-        /*if (stage == true) {
+                /*if (stage == true) {
             weatherString = precip + "% Chance of Precipitation | " + summary + " | Humidity: " + Math.round(humidity * 100) + "%";
             setWeather();
             stage = false;
@@ -618,10 +618,22 @@ span.onclick = function() {
         direction: "down"
     }, 250);
     // modal.style.display = "none";
-    $('#weather').show();
+    $('#weather').show("slide", {
+        direction: "down"
+    }, 500);
+
 
 }
-
+window.onclick = function(event) {
+    if (event.target == modal) {
+ $(modal).hide("slide", {
+        direction: "down"
+    }, 250);
+   $('#weather').show("slide", {
+        direction: "down"
+    }, 500);
+    }
+}
 
 
 //change from double click to right click
