@@ -1,7 +1,7 @@
 # ChromeExtension
 a new tab chrome extension!
-Just experimenting with Chrom Extensions. My end goal is to have an open source new tab editor.
-
+Just experimenting with Chrome Extensions. My end goal is to have an open source new tab editor.
+Added a bunch new features - will be updating soon. 
 
 ![alt tag](shot2.png)
 
