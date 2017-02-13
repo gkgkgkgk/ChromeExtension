@@ -6,3 +6,7 @@ Added a bunch new features - will be updating soon.
 ![alt tag](shot2.png)
 
 ![alt tag](shot1.png)
+
+New Weather Tab Update:
+
+![alt tag](Screen Shot 2017-02-13 at 2.31.33 PM.png)
