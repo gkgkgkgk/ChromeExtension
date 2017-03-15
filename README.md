@@ -9,4 +9,4 @@ Added a bunch new features - will be updating soon.
 
 New Weather Tab Update:
 
-![alt tag](Screen Shot 2017-02-13 at 2.31.33 PM.png)
+![alt tag](bar.png)
