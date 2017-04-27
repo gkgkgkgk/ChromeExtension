@@ -3,6 +3,9 @@ a new tab chrome extension!
 Just experimenting with Chrome Extensions. My end goal is to have an open source new tab editor.
 Added a bunch new features - will be updating soon. 
 
+## EDIT: here is the link to the Chrome Store page! https://chrome.google.com/webstore/detail/better-tabs/onfecblledejnachbhjhgdiaffnjoedn
+
+
 ![alt tag](shot2.png)
 
 ![alt tag](shot1.png)
